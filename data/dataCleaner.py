@@ -25,5 +25,7 @@ def cleanup_subreddits():
 
 
 #EXECUTE REGION
+
+cleanup_subreddits()
     
 

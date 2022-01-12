@@ -53,24 +53,24 @@ def getSubreddits():
 # GET - POSTS PER SUBREDDIT
 
 def getPosts():
+    subreddits_titles = []
 
-    subreddits = [
-        'antiwork',
-        'AskReddit',
-        'facepalm',
-        'funny',
-        'HolUp',
-        'home',
-        'Home',
-        'leagueoflegends',
-        'news',
-        'oddlyterrifying',
-        'pics'
-    ]
+    with open('json/cleanup/clean_subreddits.json', 'r') as infile:
+        file = json.load(infile)
+        
 
-    for subreddit in subreddits:
+    for subreddit in file:
+        title = subreddit['name']
+        subreddits_titles.append(title)
+
+    for subreddit in subreddits_titles:
         res = requests.get(f'{BASE_URI}/r/{subreddit}/hot',
                         headers=headers, params={'limit': '50'})
 
         with open(f'json/posts/{subreddit}.json', 'w') as outfile:
             json.dump(res.json(), outfile)
+
+
+#EXECUTE REGION
+
+getPosts()
