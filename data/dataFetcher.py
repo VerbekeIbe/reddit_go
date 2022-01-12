@@ -1,5 +1,4 @@
-import requests
-import json
+import requests, json, random
 
 BASE_URI = 'https://oauth.reddit.com'
 
@@ -71,6 +70,46 @@ def getPosts():
             json.dump(res.json(), outfile)
 
 
+def processRawComments():
+    data = []
+    with open('json/comments/comments.json', 'r', encoding="utf8") as infile:
+        file = json.load(infile)
+
+        for comment in file:
+            body = {
+                'content' : comment['body']
+            }
+            data.append(body)
+    
+    with open('json/comments/comments_processed.json', 'w') as outfile:
+        json.dump(data, outfile)
+
+
+def generateComments():
+    amount = 50000
+    i = 0
+    data=[]
+
+    
+
+    with open('json/comments/comments_processed.json', 'r', encoding="utf8") as infile:
+        file = json.load(infile)
+
+    while i < amount:
+        randomComment = random.randint(0,339)
+        body = {'content': file[randomComment]['content']}
+        
+        i += 1
+
+        data.append(body)
+
+    with open('json/comments/comments_generated.json', 'w') as outfile:
+        json.dump(data, outfile)
+    
 #EXECUTE REGION
 
-getPosts()
+# getPosts()
+
+# processRawComments()
+
+generateComments()

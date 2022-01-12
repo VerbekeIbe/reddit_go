@@ -1,0 +1,426 @@
+[
+  { "content": "This is some awesome thinking!" },
+  { "content": "What terrific math skills you\u2019re showing!" },
+  { "content": "You are an amazing writer!" },
+  { "content": "Wow! You have improved so much!" },
+  { "content": "Nice idea!" },
+  { "content": "You are showing excellent understanding!" },
+  { "content": "This is clear, concise, and complete!" },
+  { "content": "What a powerful argument!" },
+  { "content": "I knew you could do it!" },
+  { "content": "Wonderful ideas!" },
+  { "content": "It was a pleasure to grade this!" },
+  { "content": "Keep up the incredible work!" },
+  { "content": "My goodness, how impressive!" },
+  { "content": "You\u2019re showing inventive ideas!" },
+  { "content": "You\u2019ve shown so much growth!" },
+  { "content": "Interesting thoughts!" },
+  { "content": "I love your neat work!" },
+  { "content": "Doesn\u2019t it feel good to do such great work?" },
+  { "content": "First-rate work!" },
+  { "content": "This is fascinating information!" },
+  { "content": "You inspire me!" },
+  { "content": "This is right on target!" },
+  { "content": "What an astounding observation!" },
+  { "content": "This is very well thought out!" },
+  { "content": "I can tell you\u2019ve been practicing!" },
+  { "content": "You\u2019ve come a long way!" },
+  { "content": "I can tell you\u2019ve been paying attention!" },
+  { "content": "Reading this made my day!" },
+  { "content": "This is very perceptive!" },
+  { "content": "What an accomplishment!" },
+  { "content": "You make a great point here!" },
+  { "content": "I really like your creativity!" },
+  { "content": "You are an exceptional student!" },
+  { "content": "You have brilliant thoughts!" },
+  { "content": "This is beautiful!" },
+  { "content": "Dazzling examples!" },
+  { "content": "Vivid language choices!" },
+  { "content": "You express your ideas so well!" },
+  { "content": "This was a delight to read!" },
+  { "content": "This is a persuasive argument!" },
+  { "content": "You show an impressive grasp on this subject!" },
+  { "content": "You are gifted!" },
+  { "content": "You are so clever!" },
+  { "content": "What a great learner you are!" },
+  { "content": "I value these thoughts!" },
+  { "content": "You are such a motivated worker!" },
+  { "content": "You show great attention to detail!" },
+  { "content": "You are so artistic!" },
+  { "content": "I am so proud of you!" },
+  { "content": "Lovely handwriting!" },
+  { "content": "Great example!" },
+  { "content": "You worked so hard!" },
+  { "content": "You are a star!" },
+  { "content": "You learned so much!" },
+  { "content": "You are so smart!" },
+  { "content": "You\u2019ve made a lot of progress!" },
+  { "content": "What bright thinking!" },
+  { "content": "You rocked this!" },
+  { "content": "Great thinking!" },
+  { "content": "You did your best!" },
+  { "content": "I love this!" },
+  { "content": "You can do hard things!" },
+  { "content": "You are talented!" },
+  { "content": "You amaze me!" },
+  { "content": "You discovered something new!" },
+  { "content": "I enjoyed reading this!" },
+  { "content": "You are so ambitious!" },
+  { "content": "I appreciate your hard work!" },
+  { "content": "This is magical work!" },
+  { "content": "You did it!" },
+  { "content": "You\u2019ve achieved so much!" },
+  { "content": "You really challenged yourself!" },
+  { "content": "I admire you!" },
+  { "content": "You are unstoppable!" },
+  { "content": "You have great ideas!" },
+  { "content": "This really sparkles!" },
+  { "content": "What a great vision you have!" },
+  { "content": "You have really improved!" },
+  { "content": "You\u2019ve really grown!" },
+  { "content": "You are a snappy problem-solver!" },
+  { "content": "This really shines!" },
+  { "content": "You make me want to learn more!" },
+  { "content": "This made me smile!" },
+  { "content": "You are a winner!" },
+  { "content": "I love your creativity!" },
+  { "content": "You are so intelligent!" },
+  { "content": "You should be proud!" },
+  { "content": "You have amazing potential!" },
+  { "content": "This is top-notch!" },
+  { "content": "You deserve a high five!" },
+  { "content": "Way to think it through!" },
+  { "content": "This blew me away!" },
+  { "content": "These are fabulous ideas!" },
+  { "content": "This gets my seal of approval!" },
+  { "content": "This is quality work!" },
+  { "content": "You reached your goal!" },
+  { "content": "Out of this world!" },
+  { "content": "You\u2019re on top of it!" },
+  { "content": "I can tell this is your best effort!" },
+  { "content": "I love how motivated you are!" },
+  { "content": "You are so focused!" },
+  { "content": "I\u2019m so lucky to grade your work!" },
+  { "content": "I love your enthusiasm!" },
+  { "content": "I think this is the best I\u2019ve seen till now." },
+  { "content": "Not enough for me, you are everything." },
+  {
+    "content": "Just when I couldn\u2019t love you more. You posted this pic and my jaw dropped to the floor."
+  },
+  { "content": "You are a symbol of beauty." },
+  {
+    "content": "Surely you are the most beautiful woman alive, the most that I\u2019ve seen."
+  },
+  { "content": "You mean the world to me." },
+  { "content": "The word pretty is worthless without you." },
+  { "content": "You are the definition of Beauty." },
+  { "content": "Flawless outstanding eccentric lovely beauty." },
+  {
+    "content": "The stars, the moon, and the sun are minor to me since you sparkle brighter than all of them."
+  },
+  { "content": "You are graceful." },
+  {
+    "content": "Surely you would have been arrested if looking immensely beautiful was a crime."
+  },
+  {
+    "content": "You\u2019re an incredibly stunning, a really pretty, beautiful woman."
+  },
+  {
+    "content": "I guess this is your best look, you look beautiful in this outfit."
+  },
+  { "content": "You look mesmerizing." },
+  { "content": "I wonder how cute you would be looking when you sleep." },
+  { "content": "You are so much lovely." },
+  { "content": "I love your curly hair." },
+  { "content": "Your dressing sense is appreciable." },
+  { "content": "You are the sweetest girl I have ever seen." },
+  { "content": "I love that straight hair of yours." },
+  { "content": "You are pleasing." },
+  { "content": "Just \u2018WOW\u2019 for your natural beauty." },
+  { "content": "I love how comfortable you are in your world." },
+  { "content": "You are very much adorable." },
+  { "content": "You look even more pretty without makeup." },
+  { "content": "I feel so happy to be with you." },
+  { "content": "You are my safest place." },
+  { "content": "You look beautiful in that dress." },
+  { "content": "I wish I had your makeup." },
+  { "content": "You are stunning." },
+  { "content": "That natural beauty tho." },
+  { "content": "You have the most beautiful, sparkling eyes." },
+  { "content": "You have the most beautiful smile." },
+  { "content": "Your sense of fashion is great." },
+  { "content": "I like your hair." },
+  { "content": "You look more beautiful than in the photo." },
+  { "content": "You look stunning." },
+  { "content": "You\u2019re classy." },
+  { "content": "You\u2019re very trendy." },
+  { "content": "Your true colors are beautiful." },
+  { "content": "Getting lost in your chroma can prove fatal." },
+  { "content": "You\u2019ve got a beautiful heart." },
+  { "content": "Inside out; you are beautiful." },
+  { "content": "You take my breath away." },
+  { "content": "I love how expressive your eyes are." },
+  { "content": "Your beauty is one of the things I like about you." },
+  { "content": "Honestly, you are beautiful." },
+  { "content": "You\u2019re helping us sound lovely." },
+  { "content": "The beauty lies within the soul." },
+  { "content": "It\u2019s refreshing, your beauty." },
+  { "content": "You are a whisper of perfection." },
+  { "content": "You\u2019ve got lovely eyes." },
+  { "content": "There are endless possibilities for your beauty." },
+  { "content": "You are a true beauty epitome." },
+  { "content": "You\u2019re beautiful and enthusiastic." },
+  { "content": "I see the power of your grace." },
+  { "content": "You\u2019re like the sun\u2019s ray." },
+  { "content": "You\u2019re a divine present." },
+  { "content": "Beauty is just one of the beautiful features you have." },
+  { "content": "The expression is lovely." },
+  { "content": "Sorry is overcome by the grace." },
+  { "content": "You are true, beautiful and pure." },
+  { "content": "You\u2019re flawless." },
+  { "content": "You have a beautiful smile." },
+  { "content": "Your beauty is amazing." },
+  { "content": "I see the beauty of your life." },
+  { "content": "I think you\u2019re fascinated." },
+  { "content": "You\u2019re energetic, aren\u2019t ya?" },
+  { "content": "Impressive pic." },
+  { "content": "Strong and confident." },
+  { "content": "The picture is lit!" },
+  { "content": "Vibes everywhere!" },
+  { "content": "I love your straight hair with a slight flix." },
+  { "content": "The most stunning thing I\u2019ve seen today." },
+  { "content": "Your smile makes everyone happy." },
+  { "content": "You are so gorgeous." },
+  { "content": "You made my day." },
+  { "content": "This beauty has no boundaries." },
+  { "content": "No one makes me smile more than you." },
+  { "content": "Lady, you make me feel like a man." },
+  { "content": "I just can\u2019t stop wondering about you." },
+  { "content": "When I hear your voice, my morning is all my day." },
+  {
+    "content": "I am now not thankful for anything aside from having you in my life."
+  },
+  { "content": "I can never get angry with you, your love is incompetent." },
+  { "content": "If there is no \u201cyou\u201d, then my life means nothing." },
+  {
+    "content": "I get attracted to you when you try to make me a better person."
+  },
+  { "content": "I want to see you." },
+  { "content": "Hehe. cute monkey." },
+  { "content": "You\u2019re too short, just like your brain." },
+  { "content": "Hey, you brainless cutie\u2026." },
+  {
+    "content": "I am still wondering how can god create this kind of bizarre human being who is cute, adorable at the same time has no brain."
+  },
+  { "content": "You are my precious fool." },
+  { "content": "Hello idiot!" },
+  {
+    "content": "What did I just see, that\u2019s amazing, oh sorry it\u2019s you!"
+  },
+  { "content": "Cute little bitch." },
+  { "content": "Surely you\u2019d have used a photo editor." },
+  { "content": "Nice make-up." },
+  {
+    "content": "Hey Guys! here you can get to know about all the latest updates of Instagram filters."
+  },
+  { "content": "Pretty enough." },
+  { "content": "How Gorgeous." },
+  { "content": "You are ravishing." },
+  { "content": "Why are you so beautiful?" },
+  { "content": "You are amazing." },
+  { "content": "Lit!" },
+  { "content": "Your eyes are like stars." },
+  { "content": "You are just inexplicable." },
+  { "content": "Damn, what are you made of?" },
+  { "content": "You seem pretty." },
+  { "content": "You are engaging." },
+  { "content": "This one\u2019s stunning." },
+  { "content": "Damn that cheeks." },
+  { "content": "You are winsome." },
+  { "content": "You are exquisite." },
+  { "content": "Hello, Miss world." },
+  { "content": "You are elegant." },
+  { "content": "Mine." },
+  { "content": "Your charm is never-ending." },
+  { "content": "Your smile is beautiful." },
+  { "content": "Nice outfit." },
+  { "content": "Those earrings suit you." },
+  { "content": "You are graceful." },
+  { "content": "Cutiepie." },
+  { "content": "So lovely." },
+  { "content": "Your charm is irresistible." },
+  { "content": "See your beauty." },
+  { "content": "You are mine." },
+  { "content": "My heartbeat." },
+  { "content": "The most pretty girl around." },
+  { "content": "Probably the next miss world." },
+  { "content": "That innocent look tho." },
+  {
+    "content": "It seems your Demand will probably increase in the future, lmao."
+  },
+  { "content": "You spunky." },
+  { "content": "Precious diamond." },
+  { "content": "I respect you." },
+  { "content": "Keep smiling." },
+  { "content": "Where did you get that charm from?" },
+  {
+    "content": "I\u2019m sure your mother is the most beautiful lady in the world."
+  },
+  {
+    "content": "I\u2019ve heard about seven wonders of the world and the 8th just showed up!!"
+  },
+  { "content": "You are wonderful." },
+  { "content": "You are mind-blowing." },
+  { "content": "Cool." },
+  { "content": "You are Fantabulous." },
+  { "content": "This pic is just Fantastic." },
+  { "content": "Supercalifragilisticexpialidocious." },
+  { "content": "Incredibly attractive." },
+  { "content": "Aren\u2019t you awesome?" },
+  { "content": "Your magnificence is irresistible." },
+  { "content": "Such a charming post." },
+  { "content": "Elegant pic." },
+  { "content": "My words are less to portray this picture." },
+  { "content": "Beauty lies inside for those who choose to see." },
+  { "content": "The control of excellence lies inside the soul." },
+  { "content": "This picture is worth a million words." },
+  { "content": "Beauty is control; a grin is its sword." },
+  { "content": "This looks exotic." },
+  { "content": "I cherish how dynamic colors are within the picture." },
+  { "content": "Such a beautiful picture looks great." },
+  { "content": "Impressive picture." },
+  { "content": "Your grin makes me Happy." },
+  { "content": "Looking Flawless and this picture made my day." },
+  { "content": "Your elegance is indescribable." },
+  { "content": "Just divinely gorgeous." },
+  { "content": "You\u2019re an exceptionally wondrous and marvelous girl." },
+  { "content": "Your looks make me insane." },
+  { "content": "What a plenitude of magnificence." },
+  { "content": "Grasp the wonderful mess that you simply are." },
+  {
+    "content": "Incredible characteristic excellence with parts of huge charm and astounding gorgeousness."
+  },
+  { "content": "The exemplification of beauty." },
+  { "content": "Natural beauty with a brilliant heart." },
+  { "content": "Lovely and more than rich!" },
+  { "content": "Mesmerizing Treasury house of beauty." },
+  {
+    "content": "That\u2019s the icon to revere if you\u2019re sitting out of gear."
+  },
+  { "content": "How can somebody be this beautiful." },
+  { "content": "Dazzling and impressive queen!" },
+  { "content": "We all are favored to see your magnificence." },
+  { "content": "You have got such an excellent smile." },
+  { "content": "Your smile is fair enchanted and magnificent." },
+  { "content": "Like a sparkling emerald you are rare and devine." },
+  {
+    "content": "You\u2019ve got so charming and lovely grin that indeed God gives you each chance to smile."
+  },
+  {
+    "content": "Keep grinning continuously expensive, you see so charming and lovely after you smile."
+  },
+  { "content": "What a Captivating capture!" },
+  { "content": "Such a super magnificent capture this one is." },
+  { "content": "Such a charming capture." },
+  {
+    "content": "Btw for me you continuously were astounding; always are amazing and continuously gonna be astounding too."
+  },
+  { "content": "Well I think this is often my favorite posture of yours." },
+  { "content": "The meaning of excellence lies in you." },
+  { "content": "You are the light in the darkness." },
+  { "content": "No one should be permitted to look that good, ok?" },
+  { "content": "You\u2019re so charming, I can\u2019t deal." },
+  { "content": "Hello, you seem truly charming in this as always." },
+  { "content": "That grin is priceless." },
+  { "content": "You shake my world." },
+  { "content": "You are my world." },
+  {
+    "content": "You know you\u2019re pretty\u2026 lovely, amazing & extremely wonderful."
+  },
+  {
+    "content": "My heart skips a beat each time I think of you. Or perhaps it\u2019s more of a somersault."
+  },
+  {
+    "content": "For a few reasons each cherish tune makes me think of you\u2026."
+  },
+  {
+    "content": "God made the world in six days, rested on the seventh, but it took him thousands of a long time to create somebody as flawless as you."
+  },
+  {
+    "content": "I figure your guardians are bakers because they made you such a cutie pie!"
+  },
+  {
+    "content": "You looked so excellent the final time I saw you, that I overlooked what I was attending to say."
+  },
+  {
+    "content": "I can\u2019t raise the boldness to tell you how much I worship you, so I guess I\u2019ll just keep it to myself."
+  },
+  { "content": "I\u2019m so bored at work, come and rescue me." },
+  {
+    "content": "You looked incredible nowadays. I know I didn\u2019t see you, but I know you look beautiful every day."
+  },
+  { "content": "Send me a photo, so that I can give my wish list to Santa." },
+  {
+    "content": "The sunflowers would have gone into the garbage if Van Gogh had you as a subject."
+  },
+  { "content": "You can\u2019t be replaced." },
+  { "content": "This picture looks stunning, where did you get it from?" },
+  {
+    "content": "Hey, I\u2019m only preparing for my future and I would like to ask you: are you free for the rest of your life?"
+  },
+  { "content": "In this life, the one thing I can\u2019t avoid is you." },
+  { "content": "None of the comments can justify the cuteness." },
+  { "content": "Each time I see you, I get light from your eyes." },
+  {
+    "content": "Here\u2019s to hope your day consists of bright traffic lights, the supermarket\u2019s quickest queue, and all the best ways to get you right back in my embrace."
+  },
+  {
+    "content": "Your goodness is the most attractive feature, it makes me a better human."
+  },
+  {
+    "content": "How can you look so amazing every day? I am speechless when I look at you."
+  },
+  {
+    "content": "You\u2019re in my mind regularly, and you\u2019ve certainly taken a place in my heart."
+  },
+  {
+    "content": "Can you post your pictures regularly? because I want my feed to look bright and beautiful every day."
+  },
+  { "content": "Looks great, is this actually a lockdown picture?" },
+  {
+    "content": "You\u2019re really getting good at these trending Instagram challenges, I must say."
+  },
+  { "content": "Once the pandemic ends, this is what I am going to try." },
+  { "content": "I should definitely try the backdrop in your picture, girl!" },
+  {
+    "content": "Well, whatever. Just the most beautiful girl in the world loves me."
+  },
+  {
+    "content": "You should have posted this much earlier when I asked you to."
+  },
+  { "content": "I cannot believe how I found you, this is so pretty." },
+  { "content": "That\u2019s what I said." },
+  { "content": "Even Beyonce would think this is prettier." },
+  { "content": "This post is truly classy." },
+  { "content": "I have got to save this." },
+  { "content": "Irresistible!" },
+  {
+    "content": "Stop showing off, everyone knows you are extremely beautiful."
+  },
+  { "content": "I\u2019m so lucky to have you in my life." },
+  {
+    "content": "No matter where I go,\u00a0I cannot find someone beautiful like you."
+  },
+  { "content": "Behind those beautiful eyes lies a beautiful story." },
+  {
+    "content": "I checked the clouds during midnight, and wondered where has the moon gone? Well, the best one is here on Instagram."
+  },
+  {
+    "content": "This is such an Insta beauty, why waste it by commenting words."
+  },
+  { "content": "Have we met before? If not \u2013 would you like to go out?" },
+  { "content": "With great pictures, comes great responsibility." },
+  {
+    "content": "I could say this is one of the greatest pic of yours, but I\u2019ll have to repeat my comment on your next insta post."
+  }
+]

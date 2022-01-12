@@ -2,7 +2,7 @@ import uuid, json, requests, random
 
 # HELPER FUNCTIONS
 
-def getRandomUser():
+def getRandomUserId():
     userIndex = random.randint(0,99)
 
     with open('json/cleanup/clean_users.json', 'r') as infile:
@@ -10,6 +10,22 @@ def getRandomUser():
 
         random_user = file[userIndex]['id']
         return random_user
+
+def getRandomPostId():
+    postIndex = random.randint(0,2562)
+
+    with open('json/cleanup/clean_posts.json', 'r') as infile:
+        file = json.load(infile)
+
+        random_post = file[postIndex]['id']
+        return random_post
+
+def getRandomTimestamp():
+    # returns a timestamp between 01/01/2014 and 31/12/2021
+    timestamp = random.randint(1388534400, 1640995199)
+
+    return timestamp
+
 
 def getCommunityId(title):
     with open('json/cleanup/clean_subreddits.json', 'r') as infile:
@@ -82,7 +98,7 @@ def cleanup_posts():
 
                 # assign a random user id
 
-                user_id = getRandomUser()
+                user_id = getRandomUserId()
 
 
                 postData = {
@@ -103,6 +119,30 @@ def cleanup_posts():
         json.dump(data, outfile)
 
 
+# CLEANUP COMMENT DATA
+
+def cleanup_comments():
+    data = []
+
+    with open('json/comments/comments_generated.json', 'r') as infile:
+        file = json.load(infile)
+        
+        for comment in file:
+            user_id = getRandomUserId()
+            post_id = getRandomPostId()
+            timestamp = getRandomTimestamp()
+
+            commentData = {
+                'id':  str(uuid.uuid4()),
+                'post_id': post_id,
+                'user_id': user_id,
+                'content': comment['content'],
+                'timestamp': timestamp
+            }
+            data.append(commentData)
+
+    with open('json/cleanup/clean_comments.json', 'w') as outfile:
+        json.dump(data, outfile)
 
 
 
@@ -114,6 +154,8 @@ def cleanup_posts():
 # cleanup_posts()
 
 # posts_amount()
+
+cleanup_comments()
 
 
     
