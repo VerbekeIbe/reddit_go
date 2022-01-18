@@ -1,29 +1,3 @@
-
-# type Todo {
-#   id: ID!
-#   text: String!
-#   done: Boolean!
-#   user: User!
-# }
-
-# type User {
-#   id: ID!
-#   name: String!
-# }
-
-# type Query {
-#   todos: [Todo!]!
-# }
-
-# input NewTodo {
-#   text: String!
-#   userId: String!
-# }
-
-# type Mutation {
-#   createTodo(input: NewTodo!): Todo!
-# }
-
 # go get github.com/99designs/gqlgen/cmd@v0.15.1 github.com/99designs/gqlgen/internal/imports@v0.15.1 github.com/99designs/gqlgen/codegen/config@v0.15.1
 
 # TYPES
@@ -68,7 +42,13 @@ type Comment {
 # QUERIES
 
 type Query {
-  communities: [Community!]!
+  allCommunities: [Community!]!
+  allUsers: [User!]!
+  user(userId:ID!): User
+  postsByCommunity(communityId: ID!): [Post!]!
+  postsForUser(userId: ID!): [Post!]!
+  commentsByPost(postId: ID!): [Comment!]!
+  
 }
 
 # INPUTS
