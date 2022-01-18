@@ -5,18 +5,26 @@ package graph
 
 import (
 	"context"
-	"fmt"
+	// "fmt"
+	"github.com/google/uuid"
 
 	"github.com/verbekeibe/reddit-backend/graph/generated"
 	"github.com/verbekeibe/reddit-backend/graph/model"
 )
 
 func (r *mutationResolver) CreateCommunity(ctx context.Context, input model.NewCommunity) (*model.Community, error) {
-	panic(fmt.Errorf("not implemented"))
+	community:= &model.Community{
+		ID: uuid.New().String(),
+		Name: input.Name,
+		Description: &input.Description,
+		DescriptionHTML: &input.Description,
+	}
+	r.communities = append(r.communities, community)
+	return community, nil
 }
 
 func (r *queryResolver) Communities(ctx context.Context) ([]*model.Community, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.communities, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

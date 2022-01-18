@@ -1,0 +1,19 @@
+mutation createCommunity {
+  createCommunity(
+    input: {name: "testcommunity", description: "description", description_html: "descriptionpoggers"}
+  ) {
+    id
+    name
+  }
+}
+
+
+
+query getCommunities {
+  communities {
+    name
+    id
+    description
+    description_html
+  }
+}
