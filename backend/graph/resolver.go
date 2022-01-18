@@ -10,4 +10,5 @@ import "github.com/verbekeibe/reddit-backend/graph/model"
 
 type Resolver struct {
 	communities []*model.Community
+	users []*model.User
 }
