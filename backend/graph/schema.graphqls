@@ -1,28 +1,86 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
 
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
-}
+# type Todo {
+#   id: ID!
+#   text: String!
+#   done: Boolean!
+#   user: User!
+# }
+
+# type User {
+#   id: ID!
+#   name: String!
+# }
+
+# type Query {
+#   todos: [Todo!]!
+# }
+
+# input NewTodo {
+#   text: String!
+#   userId: String!
+# }
+
+# type Mutation {
+#   createTodo(input: NewTodo!): Todo!
+# }
+
+# go get github.com/99designs/gqlgen/cmd@v0.15.1 github.com/99designs/gqlgen/internal/imports@v0.15.1 github.com/99designs/gqlgen/codegen/config@v0.15.1
+
+# TYPES
 
 type User {
   id: ID!
-  name: String!
+  username: String!
+  bio: String
+  email: String!
 }
+
+type UserCommunity {
+  user_id: ID!
+  community_id: ID!
+}
+
+type Community {
+  id: ID!
+  name: String!
+  description: String
+  description_html: String
+}
+
+type Post {
+  id: ID!
+  community_id: ID!
+  user_id: ID!
+  title: String!
+  content: String!
+  content_html: String!
+  timestamp: Int!
+}
+
+type Comment {
+  id: ID!
+  post_id: ID!
+  user_id: ID!
+  content: String!
+  timestamp: Int!
+}
+
+# QUERIES
 
 type Query {
-  todos: [Todo!]!
+  communities: [Community!]!
 }
 
-input NewTodo {
-  text: String!
-  userId: String!
+# INPUTS
+
+input NewCommunity {
+  name: String!
+  description: String!
+  description_html: String!
 }
+
+# MUTATIONS 
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  createCommunity(input: NewCommunity!): Community!
 }

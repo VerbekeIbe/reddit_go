@@ -9,5 +9,5 @@ import "github.com/verbekeibe/reddit-backend/graph/model"
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	todos []*model.Todo
+	communities []*model.Community
 }
