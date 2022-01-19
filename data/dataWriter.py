@@ -26,7 +26,7 @@ def pushUsers():
         file = json.load(infile)
 
     for object in file:
-        cursor.execute("INSERT INTO user (Id, Username, Bio, Email) VALUES (%s,%s,%s, %s)",
+        cursor.execute("INSERT INTO users (Id, Username, Bio, Email) VALUES (%s,%s,%s, %s)",
                        (object["id"], object["username"], object["bio"], object["email"]))
 
 
@@ -37,7 +37,7 @@ def pushCommunities():
         file = json.load(infile)
 
     for object in file:
-        cursor.execute("INSERT INTO community (Id, Name, Description, Description_html) VALUES (%s,%s,%s, %s)",
+        cursor.execute("INSERT INTO communities (Id, Name, Description, Description_html) VALUES (%s,%s,%s, %s)",
                        (object["id"], object["name"], object["description"], object["description_html"]))
 
 
@@ -48,8 +48,8 @@ def pushPosts():
         file = json.load(infile)
 
     for object in file:
-        cursor.execute("INSERT INTO post (Id, Title, Content, Content_html, Timestamp, User_Id, Community_Id) VALUES (%s,%s,%s,%s,%s,%s,%s)", (
-            object["id"], object["title"], object["content"], object["content_html"], datetime.datetime.fromtimestamp(object["timestamp"]), object["user_id"], object["community_id"]))
+        cursor.execute("INSERT INTO posts (Id, Title, Content, Content_html, Timestamp, User_Id, Community_Id) VALUES (%s,%s,%s,%s,%s,%s,%s)", (
+            object["id"], object["title"], object["content"], object["content_html"], object["timestamp"], object["user_id"], object["community_id"]))
 
 
 # Insert comments
@@ -59,26 +59,26 @@ def pushComments():
         file = json.load(infile)
 
     for object in file:
-        cursor.execute("INSERT INTO comment (Id, Content, Timestamp, Post_Id, User_Id) VALUES (%s,%s,%s, %s, %s)", (
-            object["id"], object["content"], datetime.datetime.fromtimestamp(object["timestamp"]), object["post_id"], object["user_id"]))
+        cursor.execute("INSERT INTO comments (Id, Content, Timestamp, Post_Id, User_Id) VALUES (%s,%s,%s, %s, %s)", (
+            object["id"], object["content"], object["timestamp"], object["post_id"], object["user_id"]))
 
 def pushUserCommunities():
     with open('json/cleanup/clean_usercommunities.json', 'r') as infile:
         file = json.load(infile)
 
     for object in file:
-        cursor.execute("INSERT INTO usercommunity (Community_Id, User_Id) VALUES (%s,%s)", (
+        cursor.execute("INSERT INTO user_communities (Community_Id, User_Id) VALUES (%s,%s)", (
             object["community_id"], object["user_id"]))
 
 # EXECUTE REGION
 
 # pushUsers()
 
-# pushCommunities()
+pushCommunities()
 
-# pushPosts()
+pushPosts()
 
-# pushComments()
+pushComments()
 
 pushUserCommunities()
 

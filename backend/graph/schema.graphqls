@@ -43,11 +43,11 @@ type Comment {
 
 type Query {
   allCommunities: [Community!]!
-  allUsers: [User!]!
-  user(userId:ID!): User
-  postsByCommunity(communityId: ID!): [Post!]!
-  postsForUser(userId: ID!): [Post!]!
-  commentsByPost(postId: ID!): [Comment!]!
+  # allUsers: [User!]!
+  # user(userId:ID!): User
+  # postsByCommunity(communityId: ID!): [Post!]!
+  # postsForUser(userId: ID!): [Post!]!
+  # commentsByPost(postId: ID!): [Comment!]!
   
 }
 

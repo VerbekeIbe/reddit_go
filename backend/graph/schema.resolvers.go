@@ -7,43 +7,15 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/google/uuid"
 	"github.com/verbekeibe/reddit-backend/graph/generated"
 	"github.com/verbekeibe/reddit-backend/graph/model"
 )
 
 func (r *mutationResolver) CreateCommunity(ctx context.Context, input model.NewCommunity) (*model.Community, error) {
-	community := &model.Community{
-		ID:              uuid.New().String(),
-		Name:            input.Name,
-		Description:     &input.Description,
-		DescriptionHTML: &input.Description,
-	}
-	r.communities = append(r.communities, community)
-	return community, nil
+	panic(fmt.Errorf("not implemented"))
 }
 
 func (r *queryResolver) AllCommunities(ctx context.Context) ([]*model.Community, error) {
-	return r.communities, nil
-}
-
-func (r *queryResolver) AllUsers(ctx context.Context) ([]*model.User, error) {
-	return r.users, nil
-}
-
-func (r *queryResolver) User(ctx context.Context, userID string) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) PostsByCommunity(ctx context.Context, communityID string) ([]*model.Post, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) PostsForUser(ctx context.Context, userID string) ([]*model.Post, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) CommentsByPost(ctx context.Context, postID string) ([]*model.Comment, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -56,4 +28,24 @@ func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
 
-
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//    it when you're done.
+//  - You have helper methods in this file. Move them out to keep these resolver files clean.
+func (r *queryResolver) AllUsers(ctx context.Context) ([]*model.User, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+func (r *queryResolver) User(ctx context.Context, userID string) (*model.User, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+func (r *queryResolver) PostsByCommunity(ctx context.Context, communityID string) ([]*model.Post, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+func (r *queryResolver) PostsForUser(ctx context.Context, userID string) ([]*model.Post, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+func (r *queryResolver) CommentsByPost(ctx context.Context, postID string) ([]*model.Comment, error) {
+	panic(fmt.Errorf("not implemented"))
+}

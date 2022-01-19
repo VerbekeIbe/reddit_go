@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -9,7 +10,39 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/verbekeibe/reddit-backend/graph"
 	"github.com/verbekeibe/reddit-backend/graph/generated"
+	"github.com/verbekeibe/reddit-backend/graph/model"
+
+	"gorm.io/gorm"
+	"gorm.io/driver/mysql"
+
+	"github.com/joho/godotenv"
 )
+
+func getEnvVariable(key string) string {
+
+	// load .env file
+	err := godotenv.Load(".env")
+  
+	if err != nil {
+	  log.Fatalf("Error loading .env file")
+	}
+  
+	return os.Getenv(key)
+  }
+
+
+func initDB() {
+	connectionString := "root:" + getEnvVariable("DB_PASSWORD") +"@tcp(127.0.0.1:3306)/reddit_go?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{})
+
+	if err != nil {
+		fmt.Println((err))
+		panic("Failed to connect to database")
+	}
+
+	db.AutoMigrate( &model.User{},&model.Community{}, &model.Post{}, &model.Comment{}, &model.UserCommunity{})
+
+}
 
 const defaultPort = "8080"
 
@@ -19,6 +52,7 @@ func main() {
 		port = defaultPort
 	}
 
+	initDB()
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
