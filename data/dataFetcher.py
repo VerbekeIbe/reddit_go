@@ -1,3 +1,5 @@
+# Fetches the data from the Reddit-API
+
 import requests, json, random
 
 BASE_URI = 'https://oauth.reddit.com'

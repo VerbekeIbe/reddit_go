@@ -1,15 +1,29 @@
+# Cleans up the JSON-data fetched from the Reddit-API
+
 import uuid, json, requests, random
+from venv import create
 
 # HELPER FUNCTIONS
 
 def getRandomUserId():
     userIndex = random.randint(0,99)
 
-    with open('json/cleanup/clean_users.json', 'r') as infile:
+    with open('json/cleanup/clean_users.json', 'r',encoding="utf8") as infile:
         file = json.load(infile)
 
         random_user = file[userIndex]['id']
         return random_user
+
+def getRandomCommunityId():
+    communityIndex = random.randint(0,49)
+
+    with open('json/cleanup/clean_subreddits.json', 'r',encoding="utf8") as infile:
+        file = json.load(infile)
+
+        random_community = file[communityIndex]['id']
+        
+        return random_community
+
 
 def getRandomPostId():
     postIndex = random.randint(0,2562)
@@ -145,9 +159,28 @@ def cleanup_comments():
         json.dump(data, outfile)
 
 
+def generateUserCommunities():
+    amount = 1000
+    i = 0
+    data = []
+    
+    while i < amount:
+        random_user = getRandomUserId()
+        random_community = getRandomCommunityId()
+        record = {
+            'community_id': random_community,
+            'user_id' : random_user
+        }
+        data.append(record)
+        i += 1
+
+    with open('json/cleanup/clean_usercommunities.json', 'w') as outfile:
+        json.dump(data, outfile)
 
 
-#EXECUTE REGION
+
+
+# EXECUTE REGION
 
 # cleanup_subreddits()
 
@@ -155,7 +188,9 @@ def cleanup_comments():
 
 # posts_amount()
 
-cleanup_comments()
+# cleanup_comments()
+
+generateUserCommunities()
 
 
     
