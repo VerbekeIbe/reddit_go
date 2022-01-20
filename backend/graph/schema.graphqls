@@ -42,22 +42,14 @@ type Comment {
 # QUERIES
 
 type Query {
-  # Communities
   allCommunities: [Community!]!
   communitiesForUser(userId:ID!): [Community]!
-
-  # Users
   allUsers: [User!]!
   userById(userId:ID!): User
-
-  # Posts
   postsByCommunity(communityId: ID!): [Post]!
   postsForUser(userId: ID!): [Post]!
   postById(postId: ID!): Post!
-
-  # Comments
   commentsByPost(postId: ID!): [Comment]!
-  
 }
 
 # INPUTS
@@ -68,7 +60,6 @@ input NewCommunity {
   description_html: String!
 }
 
-#  TODO
 input NewPost {
   community_id: ID!
   user_id: ID!
@@ -77,7 +68,6 @@ input NewPost {
   content_html: String!
   timestamp: Int!
 }
-
 
 input NewComment {
 post_id: ID!
@@ -91,6 +81,7 @@ timestamp: Int!
 
 type Mutation {
   createCommunity(input: NewCommunity!): Community!
+  joinCommunity(input: UserCommunity!): UserCommunity!
   createPost(input: NewPost!): Post!
   createComment(input: NewComment!): Post!
   deleteComment(commentId: ID!):
