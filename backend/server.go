@@ -30,18 +30,22 @@ func getEnvVariable(key string) string {
 	return os.Getenv(key)
   }
 
+  var database *gorm.DB;
 
 func initDB() {
+	var err error
 	connectionString := "root:" + getEnvVariable("DB_PASSWORD") +"@tcp(" + getEnvVariable("DB_PORT")+ ")/reddit_go?charset=utf8mb4&parseTime=True&loc=Local"
 	fmt.Println(connectionString)
-	db, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{})
+	database, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 
 	if err != nil {
 		fmt.Println((err))
 		panic("Failed to connect to database")
 	}
 
-	db.AutoMigrate( &model.User{},&model.Community{}, &model.Post{}, &model.Comment{}, &model.UserCommunity{})
+	
+
+	database.AutoMigrate( &model.User{},&model.Community{}, &model.Post{}, &model.Comment{}, &model.UserCommunity{})
 
 }
 
@@ -54,10 +58,12 @@ func main() {
 	}
 
 	initDB()
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{ DB: database,}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
+
+	
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
