@@ -32,7 +32,8 @@ func getEnvVariable(key string) string {
 
 
 func initDB() {
-	connectionString := "root:" + getEnvVariable("DB_PASSWORD") +"@tcp(127.0.0.1:3306)/reddit_go?charset=utf8mb4&parseTime=True&loc=Local"
+	connectionString := "root:" + getEnvVariable("DB_PASSWORD") +"@tcp(" + getEnvVariable("DB_PORT")+ ")/reddit_go?charset=utf8mb4&parseTime=True&loc=Local"
+	fmt.Println(connectionString)
 	db, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 
 	if err != nil {

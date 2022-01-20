@@ -47,7 +47,7 @@ type UserCommunity struct {
 	Community Community
 }
 
-// MUTATION TYPES
+// MUTATION INPUT TYPES
 
 type NewCommunity struct {
 	Name            string `json:"name"`

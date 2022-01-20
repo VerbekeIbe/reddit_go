@@ -42,12 +42,21 @@ type Comment {
 # QUERIES
 
 type Query {
+  # Communities
   allCommunities: [Community!]!
-  # allUsers: [User!]!
-  # user(userId:ID!): User
-  # postsByCommunity(communityId: ID!): [Post!]!
-  # postsForUser(userId: ID!): [Post!]!
-  # commentsByPost(postId: ID!): [Comment!]!
+  communitiesForUser(userId:ID!): [Community]!
+
+  # Users
+  allUsers: [User!]!
+  userById(userId:ID!): User
+
+  # Posts
+  postsByCommunity(communityId: ID!): [Post]!
+  postsForUser(userId: ID!): [Post]!
+  postById(postId: ID!): Post!
+
+  # Comments
+  commentsByPost(postId: ID!): [Comment]!
   
 }
 
@@ -59,8 +68,30 @@ input NewCommunity {
   description_html: String!
 }
 
+#  TODO
+input NewPost {
+  community_id: ID!
+  user_id: ID!
+  title: String!
+  content: String!
+  content_html: String!
+  timestamp: Int!
+}
+
+
+input NewComment {
+post_id: ID!
+user_id: ID!
+content: String!
+timestamp: Int!
+}
+
+
 # MUTATIONS 
 
 type Mutation {
   createCommunity(input: NewCommunity!): Community!
+  createPost(input: NewPost!): Post!
+  createComment(input: NewComment!): Post!
+  deleteComment(commentId: ID!):
 }
