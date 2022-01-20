@@ -5,17 +5,14 @@ package graph
 
 import (
 	"context"
-	"fmt"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/verbekeibe/reddit-backend/graph/generated"
 	"github.com/verbekeibe/reddit-backend/graph/model"
-	"github.com/google/uuid"
-	
 )
 
 func (r *mutationResolver) CreateCommunity(ctx context.Context, input model.NewCommunity) (*model.Community, error) {
-
 	var description = input.Description
 	var descriptionHTML = input.DescriptionHTML
 	community := &model.Community{
@@ -30,42 +27,56 @@ func (r *mutationResolver) CreateCommunity(ctx context.Context, input model.NewC
 	return community, nil
 }
 
-func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
+func (r *mutationResolver) JoinCommunity(ctx context.Context, input model.NewUserCommunity) (*model.UserCommunity, error) {
+	userCommunity := &model.UserCommunity{
+		UserID: input.UserID,
+		CommunityID: input.CommunityID,
+	}
+	r.DB.Create(&userCommunity)
 
+	return userCommunity, nil
+}
+
+func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
 	timeNow := time.Now()
 	timestamp := int(timeNow.Unix())
 
 	post := &model.Post{
-		ID:              uuid.New().String(),
+		ID:          uuid.New().String(),
 		CommunityID: input.CommunityID,
-		UserID: input.UserID,
-		Title: input.Title,
-		Content: input.Content,
+		UserID:      input.UserID,
+		Title:       input.Title,
+		Content:     input.Content,
 		ContentHTML: input.ContentHTML,
-		Timestamp: timestamp,
+		Timestamp:   timestamp,
 	}
 	r.DB.Create(&post)
 
 	return post, nil
 }
 
-func (r *mutationResolver) CreateComment(ctx context.Context, input model.NewComment) (*model.Post, error) {
-	comment := &model.Comment{
+func (r *mutationResolver) CreateComment(ctx context.Context, input model.NewComment) (*model.Comment, error) {
+	timeNow := time.Now()
+	timestamp := int(timeNow.Unix())
 
+	comment := &model.Comment{
+		ID:          uuid.New().String(),
+		PostID: input.PostID,
+		UserID:      input.UserID,
+		Content:     input.Content,
+		Timestamp:   timestamp,
 	}
 
 	r.DB.Create(&comment)
 	return comment, nil
 }
 
-func (r *mutationResolver) JoinCommunity(ctx context.Context, input model.NewUserCommunity) (*model.UserCommunity, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-
-
 func (r *mutationResolver) DeleteComment(ctx context.Context, commentID string) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	var comment *model.Comment
+
+	r.DB.Where("id = ?", commentID).Delete(&comment)
+
+	return "Comment verwijdert", nil
 }
 
 func (r *queryResolver) AllCommunities(ctx context.Context) ([]*model.Community, error) {
@@ -91,21 +102,6 @@ func (r *queryResolver) CommunitiesForUser(ctx context.Context, userID string) (
 	return communities, nil
 }
 
-func (r *queryResolver) PostsForUser(ctx context.Context, userID string) ([]*model.Post, error) {
-	var userCommunities []*model.UserCommunity
-	var communityIDs []string
-	var posts []*model.Post
-
-	r.DB.Where("user_id = ?", userID).Find(&userCommunities)
-
-	for _, community := range userCommunities {
-		communityIDs = append(communityIDs, community.CommunityID)
-	}
-	r.DB.Where("community_id IN ?", communityIDs).Find(&posts)
-
-	return posts, nil
-}
-
 func (r *queryResolver) AllUsers(ctx context.Context) ([]*model.User, error) {
 	var users []*model.User
 
@@ -125,6 +121,21 @@ func (r *queryResolver) PostsByCommunity(ctx context.Context, communityID string
 	var posts []*model.Post
 
 	r.DB.Where("community_id = ?", communityID).Find(&posts)
+	return posts, nil
+}
+
+func (r *queryResolver) PostsForUser(ctx context.Context, userID string) ([]*model.Post, error) {
+	var userCommunities []*model.UserCommunity
+	var communityIDs []string
+	var posts []*model.Post
+
+	r.DB.Where("user_id = ?", userID).Find(&userCommunities)
+
+	for _, community := range userCommunities {
+		communityIDs = append(communityIDs, community.CommunityID)
+	}
+	r.DB.Where("community_id IN ?", communityIDs).Find(&posts)
+
 	return posts, nil
 }
 

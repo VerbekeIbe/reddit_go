@@ -78,14 +78,12 @@ input NewPost {
   title: String!
   content: String!
   content_html: String!
-  timestamp: Int!
 }
 
 input NewComment {
 post_id: ID!
 user_id: ID!
 content: String!
-timestamp: Int!
 }
 
 
@@ -102,6 +100,6 @@ type Mutation {
   createPost(input: NewPost!): Post!
 
   #Comments
-  createComment(input: NewComment!): Post!
+  createComment(input: NewComment!): Comment!
   deleteComment(commentId: ID!): String!
 }

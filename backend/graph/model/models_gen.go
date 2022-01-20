@@ -47,7 +47,14 @@ type UserCommunity struct {
 	Community Community
 }
 
-// MUTATION INPUT TYPES
+
+// INPUT TYPES
+
+type NewComment struct {
+	PostID  string `json:"post_id"`
+	UserID  string `json:"user_id"`
+	Content string `json:"content"`
+}
 
 type NewCommunity struct {
 	Name            string `json:"name"`
@@ -61,14 +68,6 @@ type NewPost struct {
 	Title       string `json:"title"`
 	Content     string `json:"content"`
 	ContentHTML string `json:"content_html"`
-	Timestamp   int    `json:"timestamp"`
-}
-
-type NewComment struct {
-	PostID    string `json:"post_id"`
-	UserID    string `json:"user_id"`
-	Content   string `json:"content"`
-	Timestamp int    `json:"timestamp"`
 }
 
 type NewUserCommunity struct {

@@ -104,7 +104,7 @@ type MutationResolver interface {
 	CreateCommunity(ctx context.Context, input model.NewCommunity) (*model.Community, error)
 	JoinCommunity(ctx context.Context, input model.NewUserCommunity) (*model.UserCommunity, error)
 	CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error)
-	CreateComment(ctx context.Context, input model.NewComment) (*model.Post, error)
+	CreateComment(ctx context.Context, input model.NewComment) (*model.Comment, error)
 	DeleteComment(ctx context.Context, commentID string) (string, error)
 }
 type QueryResolver interface {
@@ -577,14 +577,12 @@ input NewPost {
   title: String!
   content: String!
   content_html: String!
-  timestamp: Int!
 }
 
 input NewComment {
 post_id: ID!
 user_id: ID!
 content: String!
-timestamp: Int!
 }
 
 
@@ -601,7 +599,7 @@ type Mutation {
   createPost(input: NewPost!): Post!
 
   #Comments
-  createComment(input: NewComment!): Post!
+  createComment(input: NewComment!): Comment!
   deleteComment(commentId: ID!): String!
 }
 `, BuiltIn: false},
@@ -1302,9 +1300,9 @@ func (ec *executionContext) _Mutation_createComment(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Post)
+	res := resTmp.(*model.Comment)
 	fc.Result = res
-	return ec.marshalNPost2ᚖgithubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalNComment2ᚖgithubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteComment(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -3346,14 +3344,6 @@ func (ec *executionContext) unmarshalInputNewComment(ctx context.Context, obj in
 			if err != nil {
 				return it, err
 			}
-		case "timestamp":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timestamp"))
-			it.Timestamp, err = ec.unmarshalNInt2int(ctx, v)
-			if err != nil {
-				return it, err
-			}
 		}
 	}
 
@@ -3445,14 +3435,6 @@ func (ec *executionContext) unmarshalInputNewPost(ctx context.Context, obj inter
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("content_html"))
 			it.ContentHTML, err = ec.unmarshalNString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "timestamp":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timestamp"))
-			it.Timestamp, err = ec.unmarshalNInt2int(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4546,6 +4528,10 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
+func (ec *executionContext) marshalNComment2githubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v model.Comment) graphql.Marshaler {
+	return ec._Comment(ctx, sel, &v)
+}
+
 func (ec *executionContext) marshalNComment2ᚕᚖgithubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
@@ -4582,6 +4568,16 @@ func (ec *executionContext) marshalNComment2ᚕᚖgithubᚗcomᚋverbekeibeᚋre
 	wg.Wait()
 
 	return ret
+}
+
+func (ec *executionContext) marshalNComment2ᚖgithubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v *model.Comment) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._Comment(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNCommunity2githubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐCommunity(ctx context.Context, sel ast.SelectionSet, v model.Community) graphql.Marshaler {
