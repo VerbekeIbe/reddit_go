@@ -84,5 +84,5 @@ type Mutation {
   joinCommunity(input: UserCommunity!): UserCommunity!
   createPost(input: NewPost!): Post!
   createComment(input: NewComment!): Post!
-  deleteComment(commentId: ID!):
+  deleteComment(commentId: ID!): String!
 }
