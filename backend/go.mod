@@ -7,6 +7,8 @@ require (
 	github.com/vektah/gqlparser/v2 v2.2.0
 )
 
+require github.com/google/uuid v1.3.0
+
 require (
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/joho/godotenv v1.4.0

@@ -7,7 +7,7 @@ package model
 type User struct {
 	ID       string  `json:"id" gorm:"primary_key;size:256"`
 	Username string  `json:"username"`
-	Bio      *string `json:"bio"`
+	Bio      string `json:"bio"`
 	Email    string  `json:"email"`
 }
 

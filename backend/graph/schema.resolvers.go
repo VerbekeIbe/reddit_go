@@ -6,29 +6,63 @@ package graph
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/verbekeibe/reddit-backend/graph/generated"
 	"github.com/verbekeibe/reddit-backend/graph/model"
+	"github.com/google/uuid"
+	
 )
 
-
-
 func (r *mutationResolver) CreateCommunity(ctx context.Context, input model.NewCommunity) (*model.Community, error) {
-	
-	panic(fmt.Errorf("not implemented"))
+
+	var description = input.Description
+	var descriptionHTML = input.DescriptionHTML
+	community := &model.Community{
+		ID:              uuid.New().String(),
+		Name:            input.Name,
+		Description:     &description,
+		DescriptionHTML: &descriptionHTML,
+	}
+
+	r.DB.Create(&community)
+
+	return community, nil
+}
+
+func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
+
+	timeNow := time.Now()
+	timestamp := int(timeNow.Unix())
+
+	post := &model.Post{
+		ID:              uuid.New().String(),
+		CommunityID: input.CommunityID,
+		UserID: input.UserID,
+		Title: input.Title,
+		Content: input.Content,
+		ContentHTML: input.ContentHTML,
+		Timestamp: timestamp,
+	}
+	r.DB.Create(&post)
+
+	return post, nil
+}
+
+func (r *mutationResolver) CreateComment(ctx context.Context, input model.NewComment) (*model.Post, error) {
+	comment := &model.Comment{
+
+	}
+
+	r.DB.Create(&comment)
+	return comment, nil
 }
 
 func (r *mutationResolver) JoinCommunity(ctx context.Context, input model.NewUserCommunity) (*model.UserCommunity, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented"))
-}
 
-func (r *mutationResolver) CreateComment(ctx context.Context, input model.NewComment) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented"))
-}
 
 func (r *mutationResolver) DeleteComment(ctx context.Context, commentID string) (string, error) {
 	panic(fmt.Errorf("not implemented"))
@@ -93,8 +127,6 @@ func (r *queryResolver) PostsByCommunity(ctx context.Context, communityID string
 	r.DB.Where("community_id = ?", communityID).Find(&posts)
 	return posts, nil
 }
-
-
 
 func (r *queryResolver) PostByID(ctx context.Context, postID string) (*model.Post, error) {
 	var post *model.Post
