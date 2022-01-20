@@ -2,55 +2,66 @@
 
 package model
 
-// DATABASE TYPES
-
-type User struct {
-	ID       string  `json:"id" gorm:"primary_key;size:256"`
-	Username string  `json:"username"`
-	Bio      *string `json:"bio"`
-	Email    string  `json:"email"`
+type Comment struct {
+	ID        string `json:"id"`
+	PostID    string `json:"post_id"`
+	UserID    string `json:"user_id"`
+	Content   string `json:"content"`
+	Timestamp int    `json:"timestamp"`
 }
 
 type Community struct {
-	ID              string  `json:"id" gorm:"primary_key;size:256"`
+	ID              string  `json:"id"`
 	Name            string  `json:"name"`
 	Description     *string `json:"description"`
 	DescriptionHTML *string `json:"description_html"`
 }
 
-type Post struct {
-	ID          string `json:"id" gorm:"primary_key;size:256"`
+type NewComment struct {
+	PostID    string `json:"post_id"`
+	UserID    string `json:"user_id"`
+	Content   string `json:"content"`
+	Timestamp int    `json:"timestamp"`
+}
+
+type NewCommunity struct {
+	Name            string `json:"name"`
+	Description     string `json:"description"`
+	DescriptionHTML string `json:"description_html"`
+}
+
+type NewPost struct {
 	CommunityID string `json:"community_id"`
-	Community Community
 	UserID      string `json:"user_id"`
-	User User
 	Title       string `json:"title"`
 	Content     string `json:"content"`
 	ContentHTML string `json:"content_html"`
 	Timestamp   int    `json:"timestamp"`
 }
 
-type Comment struct {
-	ID        string `json:"id" gorm:"primary_key;size:256"`
-	PostID    string `json:"post_id"`
-	Post Post
-	UserID    string `json:"user_id"`
-	User User
-	Content   string `json:"content"`
-	Timestamp int    `json:"timestamp"`
+type NewUserCommunity struct {
+	UserID      string `json:"user_id"`
+	CommunityID string `json:"community_id"`
+}
+
+type Post struct {
+	ID          string `json:"id"`
+	CommunityID string `json:"community_id"`
+	UserID      string `json:"user_id"`
+	Title       string `json:"title"`
+	Content     string `json:"content"`
+	ContentHTML string `json:"content_html"`
+	Timestamp   int    `json:"timestamp"`
+}
+
+type User struct {
+	ID       string  `json:"id"`
+	Username string  `json:"username"`
+	Bio      *string `json:"bio"`
+	Email    string  `json:"email"`
 }
 
 type UserCommunity struct {
 	UserID      string `json:"user_id"`
-	User User
 	CommunityID string `json:"community_id"`
-	Community Community
-}
-
-// MUTATION INPUT TYPES
-
-type NewCommunity struct {
-	Name            string `json:"name"`
-	Description     string `json:"description"`
-	DescriptionHTML string `json:"description_html"`
 }

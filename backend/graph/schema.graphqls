@@ -67,6 +67,11 @@ input NewCommunity {
   description_html: String!
 }
 
+input NewUserCommunity {
+    user_id: ID!
+  community_id: ID!
+}
+
 input NewPost {
   community_id: ID!
   user_id: ID!
@@ -84,12 +89,14 @@ timestamp: Int!
 }
 
 
+
+
 # MUTATIONS 
 
 type Mutation {
   # Communities
   createCommunity(input: NewCommunity!): Community!
-  joinCommunity(input: UserCommunity!): UserCommunity!
+  joinCommunity(input: NewUserCommunity!): UserCommunity!
 
   #Posts
   createPost(input: NewPost!): Post!
