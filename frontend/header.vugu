@@ -1,0 +1,82 @@
+<script type="application/x-go">
+
+type Header struct {
+    Title string `vugu:"data"`
+    Username string `vugu:"data"`
+
+}
+    
+</script>
+
+
+<style>
+.c-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--colors-neutral-dark);
+    height: 60px;
+    width: 100vw;
+}
+
+.c-header__title {
+    color: var(--colors-neutral-xx-light);
+    font-size: var(--font-size-xl-2);
+    margin-left: var(--global-baseline);
+}
+
+.c-header__menu {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--global-baseline)*2);
+    margin-right: var(--global-baseline);
+    height: 100%;
+}
+.c-header__notification-icon {
+    display: block;
+    border:none;
+    outline:none;
+    background: none;
+    height: 100%;
+    width: 60px;
+}
+
+.c-header__notification-icon:hover,
+.c-header__notification-icon:focus {
+background-color: var(--colors-neutral-light);
+outline: none;
+border: none;
+}  
+
+.c-header__username {
+    color: var(--colors-neutral-xx-light);
+    font-size: var(--font-size-lg);
+}
+
+.c-header__logout {
+    background-color: var(--colors-neutral-x-dark);
+    color: var(--colors-neutral-xx-light);
+}
+
+.c-header__logout:hover,
+.c-header__logout:focus {
+background-color: var(--colors-neutral-light);
+outline: none;
+border: none;
+}   
+</style>
+
+<div class="c-header">
+    <div class="c-header__title" vg-content='c.Title'></div>
+
+    <div class="c-header__menu">
+        <button class="c-header__notification-icon">
+        <main:NotificationBell></main:NotificationBell>
+        </button>
+        <div class="c-header__username" vg-content='c.Username'></div>
+        <button class="button-sm c-header__logout">Log Out</button>
+    </div>
+    
+</div>
+
+
