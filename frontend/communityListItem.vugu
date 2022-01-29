@@ -1,0 +1,56 @@
+<script type="application/x-go">
+
+type CommunityListItem struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-list-item {
+    height: 60px;
+    border-bottom: 1px solid;
+    border-color: var(--colors-neutral-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.c-list-item__title {
+    margin-left: var(--global-baseline);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 60%;
+
+}
+
+.c-list-item__button {
+    margin-right: var(--global-baseline);
+    background-color: var(--colors-theme-base);
+    color: var(--colors-neutral-xx-light);
+}
+
+.c-list-item__button:hover,
+.c-list-item__button:focus {
+    background-color: var(--colors-theme-base-light);
+    outline: none;
+    border: none;
+}   
+
+</style>
+
+
+<div class="c-list-item">
+    <div class="c-list-item__title">
+        Community Name
+    </div>
+    <div>
+        <button class="button-sm c-list-item__button">Visit</button>
+    </div>
+
+</div>
+
+

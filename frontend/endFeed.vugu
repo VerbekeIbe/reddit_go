@@ -1,0 +1,24 @@
+<script type="application/x-go">
+
+type EndFeed struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-feed__end {
+    text-align: center;
+    padding-bottom: calc(var(--global-baseline)*2);
+}
+
+</style>
+
+
+<div class="c-feed__end">
+<p>You have reached the end of your feed!</p>
+<p>Try joining more communities to see more posts.</p>
+</div>
+
+

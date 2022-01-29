@@ -1,0 +1,57 @@
+<script type="application/x-go">
+
+type BackNavigator struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-back {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    margin-top: var(--global-baseline);
+    margin-bottom: var(--global-baseline);
+}
+
+.c-back__button {
+    background: var(--colors-neutral-dark);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    margin-right: var(--global-baseline);
+}
+
+.c-back__button:hover,
+.c-back__button:focus {
+background-color: var(--colors-neutral-light);
+outline: none;
+border: none;
+}  
+
+.c-back__text {
+    color: var(--colors-neutral-xx-light);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+}
+
+</style>
+
+<div class="c-back">
+
+    <button class="c-back__button">
+    <main:BackArrow></main:BackArrow>
+    </button>
+
+    <div class="c-back__text">
+    Back to Home
+    </div>
+
+</div>
+
+
+
+

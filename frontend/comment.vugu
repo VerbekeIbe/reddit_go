@@ -1,0 +1,41 @@
+<script type="application/x-go">
+
+type Comment struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-comment {
+    width: 100%;
+    min-height: 100px;
+    background-color: var(--colors-neutral-light);
+    margin-top: var(--global-baseline);
+    margin-bottom: var(--global-baseline);
+
+    border-radius: var(--global-border-radius);
+    padding-top: calc(var(--global-baseline)/2);
+    padding-bottom: calc(var(--global-baseline)/2);
+    padding-left: calc(var(--global-baseline)/2);
+    padding-right: calc(var(--global-baseline)/2);
+}
+
+.c-comment__info {
+
+}
+
+.c-comment__content {
+    
+}
+
+</style>
+
+
+<div class="c-comment">
+    <div class="c-comment__info"></div>
+    <div class="c-comment__content"></div>
+</div>
+
+

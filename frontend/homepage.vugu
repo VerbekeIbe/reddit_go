@@ -1,0 +1,47 @@
+<script type="application/x-go">
+
+type Homepage struct {
+
+}
+    
+</script>
+
+
+<style>
+
+.c-page__home {
+    padding-left: 50px;
+    padding-right: 50px;
+
+
+    display: flex;
+    justify-content: space-around;
+  
+}
+
+
+
+.c-lists {
+    color: var(--colors-neutral-xx-light);
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
+
+    margin-left: calc(var(--global-baseline)*2);
+    margin-right: calc(var(--global-baseline)*4)
+}
+
+</style>
+
+
+<div class="c-page__home">
+
+    <div> 
+        <main:Feed></main:Feed>
+    </div>
+
+    <div class="c-lists"> 
+        <main:CommunityList Title="My Communities"></main:CommunityList>
+        <main:CommunityList Title="All Communities"></main:CommunityList>
+
+    </div>
+</div>

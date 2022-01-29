@@ -1,0 +1,45 @@
+<script type="application/x-go">
+
+type PostDetailPage struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-postdetail {
+    display: flex;
+
+    color: white;
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
+    margin-bottom: calc(var(--global-baseline)/2);
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.c-postdetail__navigation {
+    width: 27vw;
+    min-width: 300px;
+    margin-left: var(--global-baseline);
+}
+
+</style>
+
+
+<div class="c-postdetail">
+
+    <div class="c-postdetail__navigation">
+        <main:BackNavigator></main:BackNavigator>
+    </div>
+    <div>
+        <main:PostDetail></main:PostDetail>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,106 @@
+<script type="application/x-go">
+
+type Post struct {
+
+}
+    
+</script>
+
+<style>
+.c-post {
+    width: 500px;
+    min-height: 100px;
+    max-height: 300px;
+
+    overflow: hidden;
+    
+    background-color: var(--colors-neutral-dark);
+    margin-top: var(--global-baseline);
+    margin-bottom: var(--global-baseline);
+
+    border-radius: var(--global-border-radius);
+    padding-top: calc(var(--global-baseline)/2);
+    padding-bottom: calc(var(--global-baseline)/2);
+    padding-left: var(--global-baseline);
+    padding-right: var(--global-baseline);
+}
+
+.c-post__info {
+    display: flex;
+    align-items: center;
+    gap:  var(--global-baseline);
+
+    max-width: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.c-post__info-creds {
+    font-size: var(--font-size-sm);
+}
+
+.c-post__info-timestamp {
+    color: var(--colors-neutral-x-light);
+    font-size: var(--font-size-sm-2);
+}
+
+.c-post__title {
+    font-size: var(--font-size-lg-2);
+    font-weight: 600;
+    padding-top: 4px;
+    padding-bottom: 8px;
+
+    max-width: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+
+}
+
+.c-post__content {
+    font-size: var(--font-size-md);
+    display: -webkit-box;
+	-webkit-line-clamp: 8;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+  	overflow: hidden;
+}
+
+
+
+</style>
+
+
+<div class="c-post">
+
+    <div class="c-post__info">
+        <div class="c-post__info-creds">
+        Posted in <strong>Community</strong> by <strong>User</strong>
+        </div>
+        <div class="c-post__info-timestamp">
+        -16/01/2022
+        </div>
+    </div>
+
+    <div class="c-post__title">
+    Post Title
+    </div>
+    <div class="c-post__content">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem.
+    </div>
+
+
+</div>

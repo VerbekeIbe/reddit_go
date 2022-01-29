@@ -9,6 +9,9 @@ type Root struct {
 </script>
 
 <style>
+body {
+    line-height: 1.2;
+}
 :root {
     --main-color: pink;
 
@@ -19,6 +22,7 @@ type Root struct {
     --colors-neutral-xx-light: #ECECEC;
 
     --colors-theme-base: #3439CF;
+    --colors-theme-base-light: #686CE8;
     --colors-theme-error:  #C80000;
 
 
@@ -41,9 +45,11 @@ type Root struct {
     border: none;
 
     text-align: center;
+    font-weight: 600;
+    font-size: var(--font-size-xl-2);
 
-    height: 36px;
-    width: 80px;
+    height: 64px;
+    width: 300px;
 }
 .button-sm {
     border-radius: calc(var(--global-border-radius)/2);
@@ -56,16 +62,35 @@ type Root struct {
     width: 80px;  
 }
 
+body,html {
+    margin: 0;
+    padding: 0;
+}
+
+
+.c-page {
+    background-color: var(--colors-neutral-x-dark);
+    height: 100vh;
+    width: 100vw;
+    border: none;
+    box-sizing: border-box;
+}
+
 
 </style>
 
-<div>
-    <main role="main">
+<div class="c-page">
 
-      <main:Header Title="Home" Username="Ibe Verbeke"></main:Header>
-            
+    <main:Header Title="Home" Username="Ibe Verbeke"></main:Header>
 
-    </main>
+     <main:PostDetailPage></main:PostDetailPage> 
+
+    <!-- <main:NotificationCenter></main:NotificationCenter> -->
+    
+   <!-- <main:Homepage></main:Homepage> -->
+   
+   <!--<main:CommunityPage></main:CommunityPage> -->
+
 </div>
 
 

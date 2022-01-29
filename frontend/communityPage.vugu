@@ -1,0 +1,62 @@
+<script type="application/x-go">
+
+type CommunityPage struct {
+
+}
+    
+</script>
+
+
+<style>
+
+.c-page__community {
+    padding-left: 50px;
+    padding-right: 50px;
+
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.c-lists {
+    color: var(--colors-neutral-xx-light);
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
+
+    margin-left: calc(var(--global-baseline)*2);
+    margin-right: calc(var(--global-baseline)*4)
+}
+
+.c-join-button {
+    background-color: var(--colors-theme-base);
+    color: var(--colors-neutral-xx-light);
+}
+
+.c-join-button:hover,
+.c-join-button:focus {
+    background-color: var(--colors-theme-base-light);
+    outline: none;
+    border: none;
+}  
+</style>
+
+
+<div class="c-page__community">
+    <div class="c-menu-left">
+
+        <main:BackNavigator></main:BackNavigator>
+        <main:CommunityInfo></main:CommunityInfo>
+        <button class="button-lg c-join-button">JOIN</button>
+    </div>
+    <div> 
+        <main:Feed></main:Feed>
+    </div>
+
+    <div class="c-lists"> 
+        <main:CommunityList Title="My Communities"></main:CommunityList>
+        <main:CommunityList Title="All Communities"></main:CommunityList>
+
+    </div>
+</div>
+
+

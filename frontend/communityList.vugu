@@ -1,0 +1,67 @@
+<script type="application/x-go">
+
+type CommunityList struct {
+    Title string `vugu:"data"`
+}
+    
+</script>
+
+
+<style>
+
+.c-communitylist {
+    height: 350px;
+    width: 300px;
+    max-height: 300px;
+
+    margin-top: var(--global-baseline);
+    margin-bottom: var(--global-baseline);
+
+    border-radius: var(--global-border-radius);
+
+    padding: 0;
+   
+}
+
+.c-communitylist__header {
+    background-color: var(--colors-neutral-light);
+    font-size: var(--font-size-lg);
+
+    height: 50px;
+    
+    display: flex;
+    align-items: center;
+    padding: calc(var(--global-baseline)/2);
+
+}
+
+.c-communitylist__list {
+    height: 250px;
+    overflow: scroll;
+    background-color: var(--colors-neutral-dark);
+    padding: 0;
+    margin: 0;
+}
+
+</style>
+
+
+<div class="c-communitylist">
+    <div class="c-communitylist__header">
+        <strong vg-content='c.Title'></strong>
+    </div>
+    <div class="c-communitylist__list">
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+        <main:CommunityListItem></main:CommunityListItem>
+    </div>
+
+
+</div>
+
+

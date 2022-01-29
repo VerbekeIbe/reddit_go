@@ -1,0 +1,172 @@
+<script type="application/x-go">
+
+type PostDetail struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-post-detail {
+    width: 700px;
+    min-height: 100px;
+
+    
+    background-color: var(--colors-neutral-dark);
+    margin-top: var(--global-baseline);
+    margin-bottom: var(--global-baseline);
+
+    border-radius: var(--global-border-radius);
+    padding-top: calc(var(--global-baseline)/2);
+    padding-bottom: calc(var(--global-baseline)/2);
+    padding-left: var(--global-baseline);
+    padding-right: var(--global-baseline);
+}
+
+.c-post__info {
+    display: flex;
+    align-items: center;
+    gap:  var(--global-baseline);
+
+    max-width: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.c-post__info-creds {
+    font-size: var(--font-size-sm);
+}
+
+.c-post__info-timestamp {
+    color: var(--colors-neutral-x-light);
+    font-size: var(--font-size-sm-2);
+}
+
+.c-post__title {
+    font-size: var(--font-size-lg-2);
+    font-weight: 600;
+    padding-top: 4px;
+    padding-bottom: 8px;
+
+    max-width: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.c-post__content {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--global-baseline);
+}
+
+.c-divider {
+
+    margin-bottom: calc(var(--global-baseline));
+    display: block;
+    border-bottom: 1px solid;
+    border-color: var(--colors-neutral-light);
+}
+
+.button-holder {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.c-form-post {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--global-baseline);
+}
+
+.c-form-post__label {
+font-size: var(--font-size-md);
+}
+.c-form-post__input {
+    margin-bottom: var(--global-baseline);
+
+    background-color: var(--colors-neutral-dark);
+
+    border: 1px solid;
+    border-color: var(--colors-neutral-x-light);
+    border-radius: var(--global-border-radius);
+
+    color: var(--colors-neutral-xx-light);
+    padding: 4px;
+    padding-left: 8px;
+
+}
+
+.c-submit-post {
+    justify-self: flex-end;
+    background-color: var(--colors-theme-base);
+    color: var(--colors-neutral-xx-light);
+}
+
+.c-submit-post:hover,
+.c-submit-post:focus {
+    background-color: var(--colors-theme-base-light);
+    outline: none;
+    border: none;
+    
+}
+
+.c-all-comments {
+    margin-bottom: calc(var(--global-baseline)/2);
+}
+
+</style>
+
+
+<div class="c-post-detail">
+    <div class="c-post__info">
+        <div class="c-post__info-creds">
+        Posted in <strong>Community</strong> by <strong>User</strong>
+        </div>
+        <div class="c-post__info-timestamp">
+        -16/01/2022
+        </div>
+    </div>
+    <div class="c-post__title">
+    Post Title
+    </div>
+    <div class="c-post__content">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem.
+    </div>
+    <span class="c-divider"></span>
+
+    <form class="c-form-post">
+        <label class="c-form-post__label" for="content">Comment as <strong>Username</strong>:</label>
+        <textarea class="c-form-post__input u-input-lg" name="content" cols="40" rows="8" placeholder="Make it engaging."></textarea>
+        <div class="button-holder">
+            <button class="button-sm c-submit-post">Comment</button>
+        </div>
+
+    </form>
+    <div class="c-all-comments">All comments:</div>
+    <span class="c-divider"></span>
+
+    <div class="c-comments">
+    <main:Comment></main:Comment>
+    <main:Comment></main:Comment>
+    <main:Comment></main:Comment>
+    <main:Comment></main:Comment>
+    </div>
+    
+    
+</div>
+
+

@@ -1,0 +1,42 @@
+<script type="application/x-go">
+
+type Feed struct {
+
+}
+    
+</script>
+
+
+<style>
+
+.c-feed {
+    color: var(--colors-neutral-xx-light);
+
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
+
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+
+
+</style>
+
+
+<div class="c-feed">
+
+<main:CreatePost></main:CreatePost>
+
+<main:Post></main:Post>
+<main:Post></main:Post>
+<main:Post></main:Post>
+<main:Post></main:Post>
+<main:Post></main:Post>
+<main:Post></main:Post>
+<main:EndFeed></main:EndFeed>
+
+</div>

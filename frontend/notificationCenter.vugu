@@ -1,0 +1,37 @@
+<script type="application/x-go">
+
+type NotificationCenter struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-notificationcenter {
+    display: flex;
+
+    color: white;
+}
+
+.c-notificationcenter__navigation {
+    width: 33vw;
+    min-width: 300px;
+    margin-left: var(--global-baseline);
+}
+
+</style>
+
+
+<div class="c-notificationcenter">
+
+    <div class="c-notificationcenter__navigation">
+        <main:BackNavigator></main:BackNavigator>
+    </div>
+    <div>
+
+    </div>
+
+</div>
+
+
