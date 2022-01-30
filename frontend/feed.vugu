@@ -9,40 +9,67 @@ import (
 type Feed struct {
     Loading bool `vugu:"data"`
     Items []PostObject `vugu:"data"`
+    Page string `vugu:"data"`
 }
 
 
 func (c *Feed) Init(ctx vugu.InitCtx) {
 
-    c.Loading = true
+     c.Loading = true
 
-    graphqlClient := graphql.NewClient("http://localhost:8080/query")
-        graphqlRequest := graphql.NewRequest(`
-            query ($communityId: ID!) {
-                postsByCommunity(communityId: $communityId){
-                    id
-                    title
-                    content
-                    timestamp
+    if c.Page == "Home" {
+        graphqlClient := graphql.NewClient("http://localhost:8080/query")
+            graphqlRequest := graphql.NewRequest(`
+                query ($userId: ID!) {
+                    postsForUser (userId: $userId){
+                        id
+                        title
+                        content
+                        timestamp
+                        community_id
+                    }
                 }
-            }
-        `)
+            `)
+
+        graphqlRequest.Var("userId", "1207d635-1c6e-4c93-bcea-f93c4a489aad")
+        var graphqlResponse map[string][]PostObject
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse);
+            err != nil {
+            panic(err)
+        }
+
+        c.Items = graphqlResponse["postsForUser"]
+
+
+    } else if c.Page == "Community" {
+        graphqlClient := graphql.NewClient("http://localhost:8080/query")
+            graphqlRequest := graphql.NewRequest(`
+                query ($communityId: ID!) {
+                    postsByCommunity(communityId: $communityId){
+                        id
+                        title
+                        content
+                        timestamp
+                    }
+                }
+            `)
 
         graphqlRequest.Var("communityId", "ac01d710-8278-4a3b-84b8-6168b2063faf")
         var graphqlResponse map[string][]PostObject
-        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse);
             err != nil {
             panic(err)
         }
 
         c.Items = graphqlResponse["postsByCommunity"]
+    }
 
         c.Loading = false
 
 }
 
 
-    
+
 </script>
 
 
@@ -68,14 +95,14 @@ func (c *Feed) Init(ctx vugu.InitCtx) {
 
 <div class="c-feed">
 
-<main:CreatePost></main:CreatePost>
+<main:CreatePost vg-if='c.Page == "Community"'></main:CreatePost>
 
 <div vg-if='c.Loading'> Loading...</div>
 
-<div vg-if='c.Loading == false && len(c.Items) > 0' > 
-            
-    <main:Post vg-for=' _,item := range c.Items' :Title="item.Title" :Id="item.Id" :Content='item.Content' :Timestamp='item.Timestamp'></main:Post>
-        
+<div vg-if='c.Loading == false && len(c.Items) > 0' >
+
+    <main:Post vg-for=' _,item := range c.Items' :Title="item.Title" :Id="item.Id" :Content='item.Content' :Timestamp='item.Timestamp' :CommunityId="item.CommunityId"></main:Post>
+
         </div>
 
 

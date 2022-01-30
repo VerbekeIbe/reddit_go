@@ -1,150 +1,271 @@
 <script type="application/x-go">
 
 type PostDetail struct {
+    Loading bool `vugu:"data"`
+    PostId string `vugu:"data"`
 
+    Title string `vugu:"data"`
+    UserId string `vugu:"data"`
+    Username string `vugu:"data"`
+    Content string `vugu:"data"`
+    Timestamp float64 `vugu:"data"`
+    UnixTime string `vugu:"data"`
+    CommunityId string `vugu:"data"`
+    CommunityName string `vugu:"data"`
+
+		Comments []CommentObject `vugu:"data"`
 }
-    
+
+func (c *PostDetail) Init(ctx vugu.InitCtx) {
+    c.Loading = true
+
+
+        graphqlClient := graphql.NewClient("http://localhost:8080/query")
+            graphqlRequest := graphql.NewRequest(`
+                query ($postId: ID!) {
+                    postById (postId: $postId){
+                        id
+                        title
+                        content
+                        timestamp
+                        community_id
+                        user_id
+                    }
+                }
+            `)
+
+        c.PostId = "0bc8d158-7cd4-4d19-ba14-5e5b7e8d8cb5"
+
+        graphqlRequest.Var("postId", c.PostId)
+        var graphqlResponse map[string]map[string]interface{}
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse);
+            err != nil {
+            panic(err)
+        }
+
+        c.Title = graphqlResponse["postById"]["title"].(string)
+        c.UserId = graphqlResponse["postById"]["user_id"].(string)
+        c.CommunityId = graphqlResponse["postById"]["community_id"].(string)
+        c.Content = graphqlResponse["postById"]["content"].(string)
+        c.Timestamp = graphqlResponse["postById"]["timestamp"].(float64)
+
+        // TODO : get Username
+        graphqlRequest = graphql.NewRequest(`
+                query ($userId: ID!){
+                    userById (userId: $userId){
+                        id
+                        username
+                    }
+                }
+            `)
+
+            graphqlRequest.Var("userId", c.UserId)
+
+
+
+            var userResponse map[string]map[string]string
+            if err := graphqlClient.Run(context.Background(), graphqlRequest, &userResponse);
+                err != nil {
+                panic(err)
+            }
+
+        c.Username = userResponse["userById"]["username"]
+
+
+       // get CommunityName
+
+        graphqlRequest = graphql.NewRequest(`
+            query ($communityId: ID!) {
+                communityById(communityId: $communityId){
+                    id
+                    name
+                    description
+                }
+            }
+        `)
+
+        graphqlRequest.Var("communityId", c.CommunityId)
+
+
+
+        var communityResponse map[string]map[string]string
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &communityResponse);
+            err != nil {
+            panic(err)
+        }
+
+        c.CommunityName = communityResponse["communityById"]["name"]
+
+
+
+        //TEST : set unixtime
+        timeInt := int64(c.Timestamp)
+        timeString := time.Unix(timeInt, 0).Format("2006-01-02 15:04:05")
+        c.UnixTime = timeString
+
+
+
+        //TODO : get Comments
+					 graphqlRequest = graphql.NewRequest(`
+            query ($postId: ID!) {
+							commentsByPost(postId: $postId){
+								id
+								content
+								timestamp
+								user_id
+  }
+}
+
+        `)
+
+        graphqlRequest.Var("postId", c.PostId)
+
+
+
+        var commentResponse map[string][]CommentObject
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &commentResponse);
+            err != nil {
+            panic(err)
+        }
+
+			c.Comments = commentResponse["commentsByPost"]
+      c.Loading = false
+}
+
+
+
 </script>
 
 
 <style>
-.c-post-detail {
-    width: 700px;
-    min-height: 100px;
+    .c-post-detail {
+        width: 700px;
+        min-height: 100px;
 
-    
-    background-color: var(--colors-neutral-dark);
-    margin-top: var(--global-baseline);
-    margin-bottom: var(--global-baseline);
 
-    border-radius: var(--global-border-radius);
-    padding-top: calc(var(--global-baseline)/2);
-    padding-bottom: calc(var(--global-baseline)/4);
-    padding-left: var(--global-baseline);
-    padding-right: var(--global-baseline);
-}
+        background-color: var(--colors-neutral-dark);
+        margin-top: var(--global-baseline);
+        margin-bottom: var(--global-baseline);
 
-.c-post__info {
-    display: flex;
-    align-items: center;
-    gap:  var(--global-baseline);
+        border-radius: var(--global-border-radius);
+        padding-top: calc(var(--global-baseline)/2);
+        padding-bottom: calc(var(--global-baseline)/4);
+        padding-left: var(--global-baseline);
+        padding-right: var(--global-baseline);
+    }
 
-    max-width: inherit;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+    .c-post__info {
+        display: flex;
+        align-items: center;
+        gap:  var(--global-baseline);
 
-.c-post__info-creds {
-    font-size: var(--font-size-sm);
-}
+        max-width: inherit;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 
-.c-post__info-timestamp {
-    color: var(--colors-neutral-x-light);
-    font-size: var(--font-size-sm-2);
-}
+    .c-post__info-creds {
+        font-size: var(--font-size-sm);
+    }
 
-.c-post__title {
-    font-size: var(--font-size-lg-2);
-    font-weight: 600;
-    padding-top: 4px;
-    padding-bottom: 8px;
+    .c-post__info-timestamp {
+        color: var(--colors-neutral-x-light);
+        font-size: var(--font-size-sm-2);
+    }
 
-    max-width: inherit;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+    .c-post__title {
+        font-size: var(--font-size-lg-2);
+        font-weight: 600;
+        padding-top: 4px;
+        padding-bottom: 8px;
 
-.c-post__content {
-    font-size: var(--font-size-md);
-    margin-bottom: var(--global-baseline);
-}
+        max-width: inherit;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 
-.c-divider {
+    .c-post__content {
+        font-size: var(--font-size-md);
+        margin-bottom: var(--global-baseline);
+    }
 
-    margin-bottom: calc(var(--global-baseline));
-    display: block;
-    border-bottom: 1px solid;
-    border-color: var(--colors-neutral-light);
-}
+    .c-divider {
 
-.button-holder {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-}
+        margin-bottom: calc(var(--global-baseline));
+        display: block;
+        border-bottom: 1px solid;
+        border-color: var(--colors-neutral-light);
+    }
 
-.c-form-post {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: var(--global-baseline);
-}
+    .button-holder {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
 
-.c-form-post__label {
-font-size: var(--font-size-md);
-}
-.c-form-post__input {
-    margin-bottom: var(--global-baseline);
+    .c-form-post {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: var(--global-baseline);
+    }
 
-    background-color: var(--colors-neutral-dark);
+    .c-form-post__label {
 
-    border: 1px solid;
-    border-color: var(--colors-neutral-x-light);
-    border-radius: var(--global-border-radius);
+        font-size: var(--font-size-md);
 
-    color: var(--colors-neutral-xx-light);
-    padding: 4px;
-    padding-left: 8px;
+    }
+    .c-form-post__input {
+        margin-bottom: var(--global-baseline);
 
-}
+        background-color: var(--colors-neutral-dark);
 
-.c-submit-post {
-    justify-self: flex-end;
-    background-color: var(--colors-theme-base);
-    color: var(--colors-neutral-xx-light);
-}
+        border: 1px solid;
+        border-color: var(--colors-neutral-x-light);
+        border-radius: var(--global-border-radius);
 
-.c-submit-post:hover,
-.c-submit-post:focus {
-    background-color: var(--colors-theme-base-light);
-    outline: none;
-    border: none;
-    
-}
+        color: var(--colors-neutral-xx-light);
+        padding: 4px;
+        padding-left: 8px;
 
-.c-all-comments {
-    margin-bottom: calc(var(--global-baseline)/2);
-}
+    }
+
+    .c-submit-post {
+        justify-self: flex-end;
+        background-color: var(--colors-theme-base);
+        color: var(--colors-neutral-xx-light);
+    }
+
+    .c-submit-post:hover,
+    .c-submit-post:focus {
+        background-color: var(--colors-theme-base-light);
+        outline: none;
+        border: none;
+
+    }
+
+    .c-all-comments {
+        margin-bottom: calc(var(--global-baseline)/2);
+    }
 
 </style>
 
+<div>
+<div vg-if='c.Loading'> Loading...</div>
 
-<div class="c-post-detail">
+<div vg-if='c.Loading == false' class="c-post-detail">
     <div class="c-post__info">
-        <div class="c-post__info-creds">
-        Posted in <strong>Community</strong> by <strong>User</strong>
+        <div class="c-post__info-creds" vg-content='c.Username'>
         </div>
-        <div class="c-post__info-timestamp">
-        -16/01/2022
+        <div class="c-post__info-timestamp" vg-content='c.UnixTime'>
         </div>
     </div>
-    <div class="c-post__title">
+    <div class="c-post__title" vg-content='c.Title'>
     Post Title
     </div>
-    <div class="c-post__content">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-    optio, eaque rerum! Provident similique accusantium nemo autem.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-    optio, eaque rerum! Provident similique accusantium nemo autem.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-    optio, eaque rerum! Provident similique accusantium nemo autem.
+    <div class="c-post__content" vg-content='c.Content'>
+
     </div>
     <span class="c-divider"></span>
 
@@ -160,13 +281,13 @@ font-size: var(--font-size-md);
     <span class="c-divider"></span>
 
     <div class="c-comments">
-    <main:Comment></main:Comment>
-    <main:Comment></main:Comment>
-    <main:Comment></main:Comment>
-    <main:Comment></main:Comment>
+    <main:Comment vg-for=' _, item := range c.Comments' :Id='item.Id' :Content='item.Content' :UserId='item.UserId' :Timestamp='item.Timestamp'></main:Comment>
+
     </div>
-    
-    
+
+
 </div>
+</div>
+
 
 

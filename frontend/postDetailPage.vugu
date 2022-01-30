@@ -1,7 +1,7 @@
 <script type="application/x-go">
 
 type PostDetailPage struct {
-
+    PostId string `vugu:"data"`
 }
     
 </script>

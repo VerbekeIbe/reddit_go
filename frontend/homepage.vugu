@@ -36,7 +36,7 @@ type Homepage struct {
 <div class="c-page__home">
 
     <div> 
-        <main:Feed></main:Feed>
+        <main:Feed Page="Home"></main:Feed>
     </div>
 
     <div class="c-lists"> 

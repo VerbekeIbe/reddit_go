@@ -11,14 +11,11 @@ type CommunityInfo struct {
     Name string `vugu:"data"` 
     Description string `vugu:"data"` 
     Id string `vugu:"data"` 
-}
-
-
-func (c *CommunityInfo) Init(ctx vugu.InitCtx) {
-    fmt.Println("sheesh")
     
-  
 }
+
+
+
 
     
 </script>

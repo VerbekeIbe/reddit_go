@@ -93,7 +93,7 @@ func (c *CommunityPage) Init(ctx vugu.InitCtx) {
         <button class="button-lg c-join-button">JOIN</button>
     </div>
     <div> 
-        <main:Feed></main:Feed>
+        <main:Feed Page="Community"></main:Feed>
     </div>
 
     <div class="c-lists"> 

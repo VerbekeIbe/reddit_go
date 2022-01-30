@@ -1,24 +1,49 @@
 <script type="application/x-go">
 
 import (
-    "fmt"
     "time"
 )
 
 type Post struct {
+    Loading bool `vugu:"data"`
     Id string `vugu:"data"`
     Title string `vugu:"data"`
     Content string `vugu:"data"`
     Timestamp int64 `vugu:"data"`
     UnixTime string `vugu:"data"`
+    CommunityId string `vugu:"data"`
+    CommunityName string `vugu:"data"`
 }
 
 
 func (c *Post) Init(ctx vugu.InitCtx) {
+    c.Loading = true
     
     timeString := time.Unix(c.Timestamp, 0).Format("2006-01-02 15:04:05")
     c.UnixTime = timeString
+  
+    graphqlClient := graphql.NewClient("http://localhost:8080/query")
+        graphqlRequest := graphql.NewRequest(`
+            query ($communityId: ID!) {
+                communityById(communityId: $communityId){
+                    id
+                    name
+                    description
+                }
+            }
+        `)
 
+        graphqlRequest.Var("communityId", c.CommunityId)
+
+        
+
+        var graphqlResponse map[string]map[string]string
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+            err != nil {
+            panic(err)
+        }
+
+        c.CommunityName = graphqlResponse["communityById"]["name"]
 
 }
     
@@ -27,7 +52,7 @@ func (c *Post) Init(ctx vugu.InitCtx) {
 <style>
 .c-post {
     width: 500px;
-    min-height: 100px;
+    min-height: 70px;
     max-height: 300px;
 
     overflow: hidden;
@@ -46,7 +71,7 @@ func (c *Post) Init(ctx vugu.InitCtx) {
 .c-post__info {
     display: flex;
     align-items: center;
-    gap:  var(--global-baseline);
+    gap:  calc(var(--global-baseline)/2);
 
     max-width: inherit;
     overflow: hidden;
@@ -56,6 +81,7 @@ func (c *Post) Init(ctx vugu.InitCtx) {
 
 .c-post__info-creds {
     font-size: var(--font-size-sm);
+    font-weight: 600;
 }
 
 .c-post__info-timestamp {
@@ -64,7 +90,7 @@ func (c *Post) Init(ctx vugu.InitCtx) {
 }
 
 .c-post__title {
-    font-size: var(--font-size-lg-2);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     padding-top: 4px;
     padding-bottom: 8px;
@@ -94,6 +120,7 @@ func (c *Post) Init(ctx vugu.InitCtx) {
 <div class="c-post">
 
     <div class="c-post__info">
+    <div class="c-post__info-creds" vg-content='c.CommunityName'></div>
         <div class="c-post__info-timestamp" vg-content='c.UnixTime'>
         </div>
     </div>

@@ -1,69 +1,114 @@
 <script type="application/x-go">
 
 type Comment struct {
+	Loading bool `vugu:"data"`
+	Id string `vugu:"data"`
+	Content string `vugu:"data"`
+	UserId string `vugu:"data"`
+	Timestamp int64 `vugu:"data"`
 
+	Username string `vugu:"data"`
+	UnixTime string `vugu:"data"`
 }
-    
+
+//TODO: get username
+
+func (c *Comment) Init(ctx vugu.InitCtx) {
+
+	c.Loading = true
+
+	graphqlClient := graphql.NewClient("http://localhost:8080/query")
+	graphqlRequest := graphql.NewRequest(`
+									query ($userId: ID!){
+											userById (userId: $userId){
+													id
+													username
+											}
+									}
+							`)
+
+							graphqlRequest.Var("userId", c.UserId)
+
+
+
+							var userResponse map[string]map[string]string
+							if err := graphqlClient.Run(context.Background(), graphqlRequest, &userResponse);
+									err != nil {
+									panic(err)
+							}
+
+
+					c.Username = userResponse["userById"]["username"]
+					fmt.Println(c.Username)
+
+	//TODO: set timestring
+
+        timeString := time.Unix(c.Timestamp, 0).Format("2006-01-02 15:04:05")
+        c.UnixTime = timeString
+
+	c.Loading = false
+}
+
+
+
+
 </script>
 
 
 <style>
-.c-comment {
-    width: 100%;
-    min-height: 100px;
-    background-color: var(--colors-neutral-light);
-    margin-top: var(--global-baseline);
-    margin-bottom: var(--global-baseline);
+	.c-comment {
+			width: 100%;
+			min-height: 40px;
+			background-color: var(--colors-neutral-light);
+			margin-top: var(--global-baseline);
+			margin-bottom: var(--global-baseline);
 
-    border-radius: var(--global-border-radius);
-    padding-top: calc(var(--global-baseline)/2);
-    padding-bottom: calc(var(--global-baseline)/2);
-    padding-left: calc(var(--global-baseline)/2);
-    padding-right: calc(var(--global-baseline)/2);
-}
+			border-radius: var(--global-border-radius);
+			padding-top: calc(var(--global-baseline)/2);
+			padding-bottom: calc(var(--global-baseline)/2);
+			padding-left: calc(var(--global-baseline)/2);
+			padding-right: calc(var(--global-baseline)/2);
+	}
 
-.c-comment__info {
-    display: flex;
-    align-items: center;
-    gap:  var(--global-baseline);
+	.c-comment__info {
+			display: flex;
+			align-items: center;
+			gap:  var(--global-baseline);
+			margin-bottom: calc(var(--global-baseline)/4);
 
-    max-width: inherit;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+			max-width: inherit;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+	}
 
-.c-comment__info-creds {
-    font-size: var(--font-size-sm);
-}
+	.c-comment__info-creds {
+			font-size: var(--font-size-sm);
+			color: var(--colors-neutral-xx-light);
+			font-weight: 600;
 
-.c-comment__info-timestamp {
-    color: var(--colors-neutral-x-light);
-    font-size: var(--font-size-sm-2);
-}
+	}
 
-.c-comment__content {
+	.c-comment__info-timestamp {
+			color: var(--colors-neutral-x-light);
+			font-size: var(--font-size-sm-2);
+	}
 
-}
+	.c-comment__content {
+
+	}
 
 </style>
 
 
-<div class="c-comment">
+<div vg-if='c.Loading == false' class="c-comment">
     <div class="c-comment__info">
-    <div class="c-comment__info-creds">
-        <strong>User</strong>
+    <div class="c-comment__info-creds" vg-content="c.Username">
         </div>
-        <div class="c-comment__info-timestamp">
-        -16/01/2022
+        <div class="c-comment__info-timestamp" vg-content='c.UnixTime'>
         </div>
     </div>
-    <div class="c-comment__content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-        optio, eaque rerum! Provident similique accusantium nemo autem.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia
+    <div class="c-comment__content" vg-content='c.Content'>
     </div>
 </div>
 
