@@ -81,6 +81,7 @@ type ComplexityRoot struct {
 		AllUsers           func(childComplexity int) int
 		CommentsByPost     func(childComplexity int, postID string) int
 		CommunitiesForUser func(childComplexity int, userID string) int
+		CommunityByID      func(childComplexity int, communityID string) int
 		PostByID           func(childComplexity int, postID string) int
 		PostsByCommunity   func(childComplexity int, communityID string) int
 		PostsForUser       func(childComplexity int, userID string) int
@@ -110,6 +111,7 @@ type MutationResolver interface {
 type QueryResolver interface {
 	AllCommunities(ctx context.Context) ([]*model.Community, error)
 	CommunitiesForUser(ctx context.Context, userID string) ([]*model.Community, error)
+	CommunityByID(ctx context.Context, communityID string) (*model.Community, error)
 	AllUsers(ctx context.Context) ([]*model.User, error)
 	UserByID(ctx context.Context, userID string) (*model.User, error)
 	PostsByCommunity(ctx context.Context, communityID string) ([]*model.Post, error)
@@ -343,6 +345,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.CommunitiesForUser(childComplexity, args["userId"].(string)), true
 
+	case "Query.communityById":
+		if e.complexity.Query.CommunityByID == nil {
+			break
+		}
+
+		args, err := ec.field_Query_communityById_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.CommunityByID(childComplexity, args["communityId"].(string)), true
+
 	case "Query.postById":
 		if e.complexity.Query.PostByID == nil {
 			break
@@ -544,6 +558,7 @@ type Query {
   # Communities
   allCommunities: [Community!]!
   communitiesForUser(userId:ID!): [Community]!
+  communityById(communityId: ID!): Community
 
   # Users
   allUsers: [User!]!
@@ -727,6 +742,21 @@ func (ec *executionContext) field_Query_communitiesForUser_args(ctx context.Cont
 		}
 	}
 	args["userId"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_communityById_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["communityId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("communityId"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["communityId"] = arg0
 	return args, nil
 }
 
@@ -1667,6 +1697,45 @@ func (ec *executionContext) _Query_communitiesForUser(ctx context.Context, field
 	res := resTmp.([]*model.Community)
 	fc.Result = res
 	return ec.marshalNCommunity2ᚕᚖgithubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐCommunity(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_communityById(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_communityById_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().CommunityByID(rctx, args["communityId"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.Community)
+	fc.Result = res
+	return ec.marshalOCommunity2ᚖgithubᚗcomᚋverbekeibeᚋredditᚑbackendᚋgraphᚋmodelᚐCommunity(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_allUsers(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -3835,6 +3904,26 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
+		case "communityById":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_communityById(ctx, field)
 				return res
 			}
 

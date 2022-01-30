@@ -1,8 +1,13 @@
 <script type="application/x-go">
 
-type CommunityPage struct {
+import (
+)
 
+type CommunityPage struct {
+    Loading bool `vugu:"data"` 
+    
 }
+
     
 </script>
 
@@ -46,6 +51,7 @@ type CommunityPage struct {
 
         <main:BackNavigator></main:BackNavigator>
         <main:CommunityInfo></main:CommunityInfo>
+        
         <button class="button-lg c-join-button">JOIN</button>
     </div>
     <div> 
@@ -55,6 +61,7 @@ type CommunityPage struct {
     <div class="c-lists"> 
         <main:CommunityList Title="My Communities"></main:CommunityList>
         <main:CommunityList Title="All Communities"></main:CommunityList>
+        
 
     </div>
 </div>

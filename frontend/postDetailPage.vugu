@@ -8,13 +8,13 @@ type PostDetailPage struct {
 
 
 <style>
-.c-postdetail {
+.c-postdetail-page {
     display: flex;
 
-    color: white;
     max-height: calc(100vh - 60px);
     overflow-y: scroll;
-    margin-bottom: calc(var(--global-baseline)/2);
+
+    color: var(--colors-neutral-xx-light);
 }
 
 ::-webkit-scrollbar {
@@ -31,7 +31,7 @@ type PostDetailPage struct {
 </style>
 
 
-<div class="c-postdetail">
+<div class="c-postdetail-page">
 
     <div class="c-postdetail__navigation">
         <main:BackNavigator></main:BackNavigator>

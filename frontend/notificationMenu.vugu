@@ -1,0 +1,94 @@
+<script type="application/x-go">
+
+type NotificationMenu struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-notification-menu {
+    width: 700px;
+    min-height: 100px;
+
+    
+    background-color: var(--colors-neutral-dark);
+    margin-top: var(--global-baseline);
+    margin-bottom: var(--global-baseline);
+
+    border-radius: var(--global-border-radius);
+}
+
+.c-notification-menu__header {
+    background-color: var(--colors-neutral-light);
+    font-size: var(--font-size-lg);
+
+    height: 50px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(var(--global-baseline)/2);
+    padding-left: var(--global-baseline);
+    padding-right: var(--global-baseline);
+
+}
+
+.c-notification-menu__empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: var(--global-border-radius);
+    width: 36px;
+    height: 36px;
+    background-color: var(--colors-neutral-x-dark);
+}
+
+.c-notification-menu__empty:hover,
+.c-notification-menu__empty:focus {
+background-color: var(--colors-neutral-x-light);
+outline: none;
+border: none;
+}   
+
+</style>
+
+
+<div class="c-notification-menu">
+    <div class="c-notification-menu__header">
+        <div>
+            <strong>Notifications</strong>
+        </div>
+        <button class="c-notification-menu__empty">
+            <main:Trashcan></main:Trashcan>
+        </button>
+           
+    </div>
+    <div class="c-notification-list">
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+        <main:Notification></main:Notification>
+    </div>
+</div>
+
+

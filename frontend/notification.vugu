@@ -1,0 +1,55 @@
+<script type="application/x-go">
+
+type Notification struct {
+
+}
+    
+</script>
+
+
+<style>
+.c-notification {
+    height: 60px;
+    border-bottom: 1px solid;
+    border-color: var(--colors-neutral-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    padding-left: var(--global-baseline);
+    padding-right: var(--global-baseline);
+
+}
+
+.c-notification__content {
+    max-width: 600px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: var(--colors-neutral-xx-light);
+}
+
+.c-notification__timestamp {
+    color: var(--colors-neutral-x-light);
+    font-size: var(--font-size-sm-2);
+}
+
+</style>
+
+
+<div class="c-notification">
+    <div class="c-notification__info">
+        <div class="c-notification__content">
+            New notification about something
+        </div>
+        <div class="c-notification__timestamp">
+            -16/01/2022
+        </div>
+    </div>
+     <div class="c-notification__navigation">
+    <main:ChevronRight></main:ChevronRight>
+    </div>
+</div>
+
+

@@ -23,19 +23,48 @@ type Comment struct {
 }
 
 .c-comment__info {
+    display: flex;
+    align-items: center;
+    gap:  var(--global-baseline);
 
+    max-width: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.c-comment__info-creds {
+    font-size: var(--font-size-sm);
+}
+
+.c-comment__info-timestamp {
+    color: var(--colors-neutral-x-light);
+    font-size: var(--font-size-sm-2);
 }
 
 .c-comment__content {
-    
+
 }
 
 </style>
 
 
 <div class="c-comment">
-    <div class="c-comment__info"></div>
-    <div class="c-comment__content"></div>
+    <div class="c-comment__info">
+    <div class="c-comment__info-creds">
+        <strong>User</strong>
+        </div>
+        <div class="c-comment__info-timestamp">
+        -16/01/2022
+        </div>
+    </div>
+    <div class="c-comment__content">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+        optio, eaque rerum! Provident similique accusantium nemo autem.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia
+    </div>
 </div>
 
 

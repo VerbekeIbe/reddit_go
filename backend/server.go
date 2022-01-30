@@ -12,6 +12,11 @@ import (
 	"github.com/verbekeibe/reddit-backend/graph/generated"
 	"github.com/verbekeibe/reddit-backend/graph/model"
 
+
+	"github.com/go-chi/chi"
+	"github.com/rs/cors"
+
+
 	"gorm.io/gorm"
 	"gorm.io/driver/mysql"
 
@@ -35,7 +40,6 @@ func getEnvVariable(key string) string {
 func initDB() {
 	var err error
 	connectionString := "root:" + getEnvVariable("DB_PASSWORD") +"@tcp(" + getEnvVariable("DB_PORT")+ ")/reddit_go?charset=utf8mb4&parseTime=True&loc=Local"
-	fmt.Println(connectionString)
 	database, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 
 	if err != nil {
@@ -52,19 +56,29 @@ func initDB() {
 const defaultPort = "8080"
 
 func main() {
-	port := os.Getenv("PORT")
+	port := getEnvVariable("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
+	router := chi.NewRouter()
+
+	// Add CORS middleware around every request
+	// See https://github.com/rs/cors for full option listing
+	router.Use(cors.AllowAll().Handler)
+
 	initDB()
+
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{ DB: database,}}))
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+
+	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	router.Handle("/query", srv)
 
 	
 
-	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	err := http.ListenAndServe(":8080", router)
+	if err != nil {
+		panic(err)
+	}
 }

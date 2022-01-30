@@ -1,7 +1,9 @@
 <script type="application/x-go">
 
 type CommunityListItem struct {
-
+    Id string `vugu:"data"`
+    Name string `vugu:"data"`
+   
 }
     
 </script>
@@ -44,8 +46,7 @@ type CommunityListItem struct {
 
 
 <div class="c-list-item">
-    <div class="c-list-item__title">
-        Community Name
+    <div class="c-list-item__title" vg-content='c.Name'>
     </div>
     <div>
         <button class="button-sm c-list-item__button">Visit</button>

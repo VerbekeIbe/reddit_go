@@ -1,6 +1,26 @@
 <script type="application/x-go">
 
+import (
+    "fmt"
+    "time"
+)
+
 type Post struct {
+    Id string `vugu:"data"`
+    Title string `vugu:"data"`
+    Content string `vugu:"data"`
+    Timestamp int64 `vugu:"data"`
+    UnixTime string `vugu:"data"`
+}
+
+
+func (c *Post) Init(ctx vugu.InitCtx) {
+    
+    timeString := time.Unix(c.Timestamp, 0).Format("2006-01-02 15:04:05")
+
+    fmt.Println(timeString)
+    c.UnixTime = timeString
+
 
 }
     
@@ -76,30 +96,14 @@ type Post struct {
 <div class="c-post">
 
     <div class="c-post__info">
-        <div class="c-post__info-creds">
-        Posted in <strong>Community</strong> by <strong>User</strong>
-        </div>
-        <div class="c-post__info-timestamp">
-        -16/01/2022
+        <div class="c-post__info-timestamp" vg-content='c.UnixTime'>
         </div>
     </div>
 
-    <div class="c-post__title">
-    Post Title
+    <div class="c-post__title" vg-content='c.Title'>
     </div>
-    <div class="c-post__content">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-    optio, eaque rerum! Provident similique accusantium nemo autem.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-    optio, eaque rerum! Provident similique accusantium nemo autem.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-    optio, eaque rerum! Provident similique accusantium nemo autem.
+    <div class="c-post__content" vg-content='c.Content'>
+
     </div>
 
 

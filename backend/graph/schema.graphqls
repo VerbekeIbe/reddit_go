@@ -45,6 +45,7 @@ type Query {
   # Communities
   allCommunities: [Community!]!
   communitiesForUser(userId:ID!): [Community]!
+  communityById(communityId: ID!): Community
 
   # Users
   allUsers: [User!]!

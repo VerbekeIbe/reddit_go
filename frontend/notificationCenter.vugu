@@ -11,11 +11,14 @@ type NotificationCenter struct {
 .c-notificationcenter {
     display: flex;
 
-    color: white;
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
+
+    color: var(--colors-neutral-xx-light);
 }
 
 .c-notificationcenter__navigation {
-    width: 33vw;
+    width: 27vw;
     min-width: 300px;
     margin-left: var(--global-baseline);
 }
@@ -29,7 +32,7 @@ type NotificationCenter struct {
         <main:BackNavigator></main:BackNavigator>
     </div>
     <div>
-
+        <main:NotificationMenu></main:NotificationMenu>
     </div>
 
 </div>

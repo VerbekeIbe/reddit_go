@@ -29,7 +29,7 @@ func (r *mutationResolver) CreateCommunity(ctx context.Context, input model.NewC
 
 func (r *mutationResolver) JoinCommunity(ctx context.Context, input model.NewUserCommunity) (*model.UserCommunity, error) {
 	userCommunity := &model.UserCommunity{
-		UserID: input.UserID,
+		UserID:      input.UserID,
 		CommunityID: input.CommunityID,
 	}
 	r.DB.Create(&userCommunity)
@@ -60,11 +60,11 @@ func (r *mutationResolver) CreateComment(ctx context.Context, input model.NewCom
 	timestamp := int(timeNow.Unix())
 
 	comment := &model.Comment{
-		ID:          uuid.New().String(),
-		PostID: input.PostID,
-		UserID:      input.UserID,
-		Content:     input.Content,
-		Timestamp:   timestamp,
+		ID:        uuid.New().String(),
+		PostID:    input.PostID,
+		UserID:    input.UserID,
+		Content:   input.Content,
+		Timestamp: timestamp,
 	}
 
 	r.DB.Create(&comment)
@@ -100,6 +100,13 @@ func (r *queryResolver) CommunitiesForUser(ctx context.Context, userID string) (
 	r.DB.Find(&communities, communityIDs)
 
 	return communities, nil
+}
+
+func (r *queryResolver) CommunityByID(ctx context.Context, communityID string) (*model.Community, error) {
+	var community *model.Community
+
+	r.DB.Where("id = ?", communityID).Find(&community)
+	return community, nil
 }
 
 func (r *queryResolver) AllUsers(ctx context.Context) ([]*model.User, error) {

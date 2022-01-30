@@ -1,14 +1,85 @@
 <script type="application/x-go">
 
+import (
+
+    "context"
+    "fmt"
+    "github.com/machinebox/graphql"
+
+)
+
 type CommunityList struct {
     Title string `vugu:"data"`
+    Loading bool `vugu:"data"`
+    Items []Community `vugu:"data"`
+
 }
+
+func (c *CommunityList) Init(ctx vugu.InitCtx) {
+
+    // kick of loading data from an endpoint
+  
+    c.Loading = true
+
+    if c.Title == "All Communities" {
+        graphqlClient := graphql.NewClient("http://localhost:8080/query")
+        graphqlRequest := graphql.NewRequest(`
+            query {
+                allCommunities{
+                    id
+                    name
+                }
+            }
+        `)
+
+        var graphqlResponse map[string][]Community
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+            err != nil {
+            panic(err)
+        }
+
+            c.Items = graphqlResponse["allCommunities"]
+
+    } else if c.Title == "My Communities" {
+
+        graphqlClient := graphql.NewClient("http://localhost:8080/query")
+        graphqlRequest := graphql.NewRequest(`
+            query ($userId: ID!) {
+                communitiesForUser(userId:$userId){
+                    id
+                    name
+                    }
+                }
+            `)
+
+        graphqlRequest.Var("userId", "005a5a05-73a8-4379-bb99-cb48dc7fd8a5")
+
+        var graphqlResponse map[string][]Community
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+            err != nil {
+            panic(err)
+        }
+
+            c.Items = graphqlResponse["communitiesForUser"]
+
+        
+       
+    }
     
+    
+        
+    
+
+    c.Loading = false;
+
+}
+
+
+
 </script>
 
 
 <style>
-
 .c-communitylist {
     height: 350px;
     width: 300px;
@@ -42,7 +113,6 @@ type CommunityList struct {
     padding: 0;
     margin: 0;
 }
-
 </style>
 
 
@@ -50,15 +120,19 @@ type CommunityList struct {
     <div class="c-communitylist__header">
         <strong vg-content='c.Title'></strong>
     </div>
+
+    
+
+
     <div class="c-communitylist__list">
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
-        <main:CommunityListItem></main:CommunityListItem>
+        <div vg-if='c.Loading'> Loading...</div>
+        <div vg-if='c.Loading == false && len(c.Items) > 0' > 
+            
+            <main:CommunityListItem vg-for=' _,item := range c.Items' :Name="item.Name" :Id="item.Id"></main:CommunityListItem>
+        
+        </div>
+    
+
     </div>
 
 

@@ -1,8 +1,49 @@
 <script type="application/x-go">
 
+import (
+    "context"
+    "fmt"
+    "github.com/machinebox/graphql"
+)
+
 type Feed struct {
+    Loading bool `vugu:"data"`
+    Items []PostObject `vugu:"data"`
+}
+
+
+func (c *Feed) Init(ctx vugu.InitCtx) {
+
+    c.Loading = true
+
+    graphqlClient := graphql.NewClient("http://localhost:8080/query")
+        graphqlRequest := graphql.NewRequest(`
+            query ($communityId: ID!) {
+                postsByCommunity(communityId: $communityId){
+                    id
+                    title
+                    content
+                    timestamp
+                }
+            }
+        `)
+
+        graphqlRequest.Var("communityId", "ac01d710-8278-4a3b-84b8-6168b2063faf")
+        var graphqlResponse map[string][]PostObject
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+            err != nil {
+            panic(err)
+        }
+
+        c.Items = graphqlResponse["postsByCommunity"]
+
+        fmt.Println(c.Items)
+
+        c.Loading = false
 
 }
+
+
     
 </script>
 
@@ -31,12 +72,15 @@ type Feed struct {
 
 <main:CreatePost></main:CreatePost>
 
-<main:Post></main:Post>
-<main:Post></main:Post>
-<main:Post></main:Post>
-<main:Post></main:Post>
-<main:Post></main:Post>
-<main:Post></main:Post>
+<div vg-if='c.Loading'> Loading...</div>
+
+<div vg-if='c.Loading == false && len(c.Items) > 0' > 
+            
+    <main:Post vg-for=' _,item := range c.Items' :Title="item.Title" :Id="item.Id" :Content='item.Content' :Timestamp='item.Timestamp'></main:Post>
+        
+        </div>
+
+
 <main:EndFeed></main:EndFeed>
 
 </div>

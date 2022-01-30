@@ -1,5 +1,6 @@
 <script type="application/x-go">
 
+
 type Root struct {
     ShowWasm bool `vugu:"data"`
     ShowGo bool   `vugu:"data"`
@@ -75,21 +76,19 @@ body,html {
     border: none;
     box-sizing: border-box;
 }
-
-
 </style>
 
 <div class="c-page">
 
     <main:Header Title="Home" Username="Ibe Verbeke"></main:Header>
 
-     <main:PostDetailPage></main:PostDetailPage> 
+      <!-- <main:PostDetailPage></main:PostDetailPage> -->
 
-    <!-- <main:NotificationCenter></main:NotificationCenter> -->
+   <!-- <main:NotificationCenter></main:NotificationCenter> -->
     
-   <!-- <main:Homepage></main:Homepage> -->
+    <!-- <main:Homepage></main:Homepage> -->
    
-   <!--<main:CommunityPage></main:CommunityPage> -->
+   <main:CommunityPage></main:CommunityPage> 
 
 </div>
 
