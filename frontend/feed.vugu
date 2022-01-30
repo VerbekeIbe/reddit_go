@@ -37,8 +37,6 @@ func (c *Feed) Init(ctx vugu.InitCtx) {
 
         c.Items = graphqlResponse["postsByCommunity"]
 
-        fmt.Println(c.Items)
-
         c.Loading = false
 
 }

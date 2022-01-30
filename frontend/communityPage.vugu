@@ -5,7 +5,43 @@ import (
 
 type CommunityPage struct {
     Loading bool `vugu:"data"` 
+    Name string `vugu:"data"` 
+    Description string `vugu:"data"` 
+    Id string `vugu:"data"` 
     
+}
+
+
+func (c *CommunityPage) Init(ctx vugu.InitCtx) {
+
+    // kick of loading data from an endpoint
+     c.Loading = true
+
+    graphqlClient := graphql.NewClient("http://localhost:8080/query")
+        graphqlRequest := graphql.NewRequest(`
+            query ($communityId: ID!) {
+                communityById(communityId: $communityId){
+                    id
+                    name
+                    description
+                }
+            }
+        `)
+
+        graphqlRequest.Var("communityId", "ac01d710-8278-4a3b-84b8-6168b2063faf")
+        var graphqlResponse map[string]map[string]string
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+            err != nil {
+            panic(err)
+        }
+
+        c.Name = graphqlResponse["communityById"]["name"]
+        c.Id = graphqlResponse["communityById"]["id"]
+        c.Description = graphqlResponse["communityById"]["description"]
+
+       
+        c.Loading = false
+  
 }
 
     
@@ -50,7 +86,9 @@ type CommunityPage struct {
     <div class="c-menu-left">
 
         <main:BackNavigator></main:BackNavigator>
-        <main:CommunityInfo></main:CommunityInfo>
+
+        <div vg-if='c.Loading'> Loading...</div>
+        <main:CommunityInfo vg-if='c.Loading == false' :Name='c.Name' :Id='c.Id' :Description='c.Description' ></main:CommunityInfo>
         
         <button class="button-lg c-join-button">JOIN</button>
     </div>

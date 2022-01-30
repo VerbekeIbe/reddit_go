@@ -8,39 +8,15 @@ import (
 
 type CommunityInfo struct {
     Loading bool `vugu:"data"`
+    Name string `vugu:"data"` 
+    Description string `vugu:"data"` 
+    Id string `vugu:"data"` 
 }
 
 
-
 func (c *CommunityInfo) Init(ctx vugu.InitCtx) {
-
-    // kick of loading data from an endpoint
-     c.Loading = true
-
-    graphqlClient := graphql.NewClient("http://localhost:8080/query")
-        graphqlRequest := graphql.NewRequest(`
-            query ($communityId: ID!) {
-                postsByCommunity(communityId: $communityId){
-                    id
-                    title
-                    content
-                    timestamp
-                }
-            }
-        `)
-
-        graphqlRequest.Var("communityId", "ac01d710-8278-4a3b-84b8-6168b2063faf")
-        var graphqlResponse map[string][]PostObject
-        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
-            err != nil {
-            panic(err)
-        }
-
-        c.Items = graphqlResponse["postsByCommunity"]
-
-        fmt.Println(c.Items)
-
-        c.Loading = false
+    fmt.Println("sheesh")
+    
   
 }
 
@@ -92,25 +68,9 @@ func (c *CommunityInfo) Init(ctx vugu.InitCtx) {
 
 
 <div class="c-community-info">
-    <div class="c-community__title">
-        Name
+    <div class="c-community__title" vg-content='c.Name'>
     </div>
-    <div class="c-community__description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-        optio, eaque rerum! Provident mquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium harum quisquam eius sed odit fugiat iusto...
-         optio, eaque rerum! Provident mquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium harum quisquam eius sed odit fugiat iusto...
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-        optio, eaque rerum! Provident mquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium harum quisquam eius sed odit fugiat iusto...
-         optio, eaque rerum! Provident mquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium harum quisquam eius sed odit fugiat iusto...
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-        optio, eaque rerum! Provident mquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium harum quisquam eius sed odit fugiat iusto...
-         optio, eaque rerum! Provident mquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium harum quisquam eius sed odit fugiat iusto...
+    <div class="c-community__description" vg-content='c.Description'>
     </div>
 </div>
 

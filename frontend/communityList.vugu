@@ -28,6 +28,7 @@ func (c *CommunityList) Init(ctx vugu.InitCtx) {
                 allCommunities{
                     id
                     name
+                    description
                 }
             }
         `)

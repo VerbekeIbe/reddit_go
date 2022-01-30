@@ -17,8 +17,6 @@ type Post struct {
 func (c *Post) Init(ctx vugu.InitCtx) {
     
     timeString := time.Unix(c.Timestamp, 0).Format("2006-01-02 15:04:05")
-
-    fmt.Println(timeString)
     c.UnixTime = timeString
 
 
