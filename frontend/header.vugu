@@ -5,7 +5,7 @@ type Header struct {
     Username string `vugu:"data"`
 
 }
-    
+
 </script>
 
 
@@ -46,7 +46,7 @@ type Header struct {
 background-color: var(--colors-neutral-light);
 outline: none;
 border: none;
-}  
+}
 
 .c-header__username {
     color: var(--colors-neutral-xx-light);
@@ -63,7 +63,7 @@ border: none;
 background-color: var(--colors-neutral-light);
 outline: none;
 border: none;
-}   
+}
 </style>
 
 <div class="c-header">
@@ -71,12 +71,12 @@ border: none;
 
     <div class="c-header__menu">
         <button class="c-header__notification-icon">
-        <main:NotificationBell></main:NotificationBell>
+        <!-- <main:NotificationBell></main:NotificationBell> -->
         </button>
         <div class="c-header__username" vg-content='c.Username'></div>
         <button class="button-sm c-header__logout">Log Out</button>
     </div>
-    
+
 </div>
 
 

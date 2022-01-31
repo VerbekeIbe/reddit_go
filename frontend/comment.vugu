@@ -39,7 +39,6 @@ func (c *Comment) Init(ctx vugu.InitCtx) {
 
 
 					c.Username = userResponse["userById"]["username"]
-					fmt.Println(c.Username)
 
 	//TODO: set timestring
 

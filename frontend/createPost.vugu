@@ -1,88 +1,159 @@
 <script type="application/x-go">
-
+import (
+	"github.com/vugu/vugu/vgform"
+)
 type CreatePost struct {
+	PostTitle string `vugu:"data"`
+	PostContent string `vugu:"data"`
+	SubmitError bool `vugu:"data"`
+}
+
+
+func (c *CreatePost) CheckInputs() bool {
+	//empty check
+	if c.PostTitle != "" && c.PostContent != "" {
+
+		return true
+
+	} else {
+
+			return false
+	}
+}
+
+
+
+func (c *CreatePost) Submit() {
+	newPost := NewPost {
+		UserId: "005a5a05-73a8-4379-bb99-cb48dc7fd8a5",
+		CommunityId: "ac01d710-8278-4a3b-84b8-6168b2063faf",
+		Title: c.PostTitle,
+		Content: c.PostContent,
+		ContentHTML: c.PostContent,
+	}
+
+		graphqlClient := graphql.NewClient("http://localhost:8080/query")
+      graphqlRequest := graphql.NewRequest(`
+          mutation ($input: NewPost!) {
+  					createPost(input: $input) {
+    					id
+  					}
+					}
+        `)
+
+        graphqlRequest.Var("input", newPost)
+        var postResponse interface {}
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &postResponse);
+            err != nil {
+            panic(err)
+        }
 
 }
-    
+
+func (c *CreatePost) CheckSubmit(event vugu.DOMEvent) {
+	event.PreventDefault()
+
+	var check bool
+
+	check = c.CheckInputs()
+	if check {
+		c.SubmitError = false
+		go c.Submit()
+
+
+		// TODO init values
+
+
+
+	} else {
+		c.SubmitError = true
+	}
+}
+
 </script>
 
 
 <style>
-.c-post__create {
-    width: 500px;
-    min-height: 100px;
-    max-height: 430px;
+	.c-post__create {
+			width: 500px;
+			min-height: 100px;
+			max-height: 430px;
 
-    overflow: hidden;
-    
-    background-color: var(--colors-neutral-dark);
-    margin-top: var(--global-baseline);
-    margin-bottom: var(--global-baseline);
+			overflow: hidden;
 
-    border-radius: var(--global-border-radius);
-    padding-top: calc(var(--global-baseline)/2);
-    padding-bottom: calc(var(--global-baseline)/2);
-    padding-left: var(--global-baseline);
-    padding-right: var(--global-baseline);
-}
+			background-color: var(--colors-neutral-dark);
+			margin-top: var(--global-baseline);
+			margin-bottom: var(--global-baseline);
 
-.c-post__title {
-    font-size: var(--font-size-lg-2);
-    font-weight: 600;
-    padding-top: 4px;
-    padding-bottom: 4px;
+			border-radius: var(--global-border-radius);
+			padding-top: calc(var(--global-baseline)/2);
+			padding-bottom: calc(var(--global-baseline)/2);
+			padding-left: var(--global-baseline);
+			padding-right: var(--global-baseline);
+	}
 
-    max-width: inherit;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+	.c-post__title {
+			font-size: var(--font-size-lg-2);
+			font-weight: 600;
+			padding-top: 4px;
+			padding-bottom: 4px;
 
-.c-form-post {
-    display: flex;
-    flex-direction: column;
-}
+			max-width: inherit;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+	}
 
-.c-form-post__label {
-font-size: var(--font-size-md);
-}
-.c-form-post__input {
-    margin-bottom: var(--global-baseline);
+	.c-form-post {
+			display: flex;
+			flex-direction: column;
+	}
 
-    background-color: var(--colors-neutral-dark);
+	.c-form-post__label {
+	font-size: var(--font-size-md);
+	}
+	.c-form-post__input {
+			margin-bottom: var(--global-baseline);
 
-    border: 1px solid;
-    border-color: var(--colors-neutral-x-light);
-    border-radius: var(--global-border-radius);
+			background-color: var(--colors-neutral-dark);
 
-    color: var(--colors-neutral-xx-light);
-    padding: 4px;
-    padding-left: 8px;
+			border: 1px solid;
+			border-color: var(--colors-neutral-x-light);
+			border-radius: var(--global-border-radius);
 
-}
+			color: var(--colors-neutral-xx-light);
+			padding: 4px;
+			padding-left: 8px;
 
-.u-input-lg {
-   max-height: 150px;
-}
+	}
 
-.button-holder {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-}
-.c-submit-post {
-    justify-self: flex-end;
-    background-color: var(--colors-theme-base);
-    color: var(--colors-neutral-xx-light);
-}
+	.u-input-lg {
+		max-height: 150px;
+		min-height: 60px;
+	}
 
-.c-submit-post:hover,
-.c-submit-post:focus {
-    background-color: var(--colors-theme-base-light);
-    outline: none;
-    border: none;
-    
-}  
+	.button-holder {
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+	}
+	.c-submit-post {
+			justify-self: flex-end;
+			background-color: var(--colors-theme-base);
+			color: var(--colors-neutral-xx-light);
+	}
+
+	.c-submit-post:hover,
+	.c-submit-post:focus {
+			background-color: var(--colors-theme-base-light);
+			outline: none;
+			border: none;
+
+	}
+
+	.c-submit__error {
+		color: var(--colors-theme-error);
+	}
 </style>
 
 
@@ -90,12 +161,22 @@ font-size: var(--font-size-md);
     <div class="c-post__title">Create a post</div>
     <form class="c-form-post">
         <label class="c-form-post__label" for="title">Title:</label>
-        <input class="c-form-post__input" type="text" id="title"
-        placeholder="Pick a good title.">
+
+				 <vgform:Input id="title" type="text" class="c-form-post__input"
+        :Value='vgform.StringPtr{&c.PostTitle}' placeholder="Pick a good title."
+        ></vgform:Input>
+
         <label class="c-form-post__label" for="content">Content:</label>
-        <textarea class="c-form-post__input u-input-lg" name="content" cols="40" rows="5" placeholder="Make it engaging."></textarea>
+				<vgform:Textarea id="content" class="c-form-post__input u-input-lg" cols="40" rows="5"  placeholder="Make it engaging."
+                :Value='vgform.StringPtrDefault(&c.PostContent, "")'
+                ></vgform:Textarea>
+
+
+
+								<div class='c-submit__error' vg-if='c.SubmitError'>Your post needs both a title and some content.</div>
+
         <div class="button-holder">
-            <button class="button-sm c-submit-post">Post</button>
+            <button @click="c.CheckSubmit(event)" class="button-sm c-submit-post">Post</button>
         </div>
 
     </form>

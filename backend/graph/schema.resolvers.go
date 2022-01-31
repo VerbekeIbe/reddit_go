@@ -5,6 +5,7 @@ package graph
 
 import (
 	"context"
+	"sort"
 	"time"
 
 	"github.com/google/uuid"
@@ -76,7 +77,7 @@ func (r *mutationResolver) DeleteComment(ctx context.Context, commentID string) 
 
 	r.DB.Where("id = ?", commentID).Delete(&comment)
 
-	return "Comment verwijdert", nil
+	return "Comment verwijderd", nil
 }
 
 func (r *queryResolver) AllCommunities(ctx context.Context) ([]*model.Community, error) {
@@ -128,6 +129,11 @@ func (r *queryResolver) PostsByCommunity(ctx context.Context, communityID string
 	var posts []*model.Post
 
 	r.DB.Where("community_id = ?", communityID).Find(&posts)
+
+	sort.Slice(posts, func(i, j int) bool {
+		return posts[i].Timestamp > posts[j].Timestamp
+	})
+
 	return posts, nil
 }
 
@@ -143,6 +149,10 @@ func (r *queryResolver) PostsForUser(ctx context.Context, userID string) ([]*mod
 	}
 	r.DB.Where("community_id IN ?", communityIDs).Find(&posts)
 
+	sort.Slice(posts, func(i, j int) bool {
+		return posts[i].Timestamp > posts[j].Timestamp
+	})
+
 	return posts, nil
 }
 
@@ -157,6 +167,11 @@ func (r *queryResolver) CommentsByPost(ctx context.Context, postID string) ([]*m
 	var comments []*model.Comment
 
 	r.DB.Where("post_id = ?", postID).Find(&comments)
+
+	sort.Slice(comments, func(i, j int) bool {
+		return comments[i].Timestamp > comments[j].Timestamp
+	})
+
 	return comments, nil
 }
 
@@ -168,3 +183,4 @@ func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+

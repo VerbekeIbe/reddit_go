@@ -4,13 +4,48 @@ import (
 )
 
 type CommunityPage struct {
-    Loading bool `vugu:"data"` 
-    Name string `vugu:"data"` 
-    Description string `vugu:"data"` 
-    Id string `vugu:"data"` 
-    
+	vgrouter.NavigatorRef
+
+    Loading bool `vugu:"data"`
+    Name string `vugu:"data"`
+    Description string `vugu:"data"`
+    Id string `vugu:"data"`
+
+		IsMember bool `vugu:"data"`
+
 }
 
+func (c *CommunityPage) JoinCommunity() {
+
+	join := NewUserCommunity{
+		UserId: "005a5a05-73a8-4379-bb99-cb48dc7fd8a5",
+		CommunityId: "ac01d710-8278-4a3b-84b8-6168b2063faf",
+	}
+
+ 			graphqlClient := graphql.NewClient("http://localhost:8080/query")
+      graphqlRequest := graphql.NewRequest(`
+          mutation ($input: NewUserCommunity!) {
+  					joinCommunity(input: $input) {
+    					user_id
+    					community_id
+  					}
+					}
+        `)
+
+        graphqlRequest.Var("input", join)
+        var joinResponse interface {}
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &joinResponse);
+            err != nil {
+            panic(err)
+        }
+
+			fmt.Println(joinResponse)
+
+			c.IsMember = true
+
+
+
+}
 
 func (c *CommunityPage) Init(ctx vugu.InitCtx) {
 
@@ -30,7 +65,7 @@ func (c *CommunityPage) Init(ctx vugu.InitCtx) {
 
         graphqlRequest.Var("communityId", "ac01d710-8278-4a3b-84b8-6168b2063faf")
         var graphqlResponse map[string]map[string]string
-        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse); 
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &graphqlResponse);
             err != nil {
             panic(err)
         }
@@ -39,46 +74,58 @@ func (c *CommunityPage) Init(ctx vugu.InitCtx) {
         c.Id = graphqlResponse["communityById"]["id"]
         c.Description = graphqlResponse["communityById"]["description"]
 
-       
+
         c.Loading = false
-  
+
 }
 
-    
+
 </script>
 
 
 <style>
 
-.c-page__community {
-    padding-left: 50px;
-    padding-right: 50px;
+	.c-page__community {
+			padding-left: 50px;
+			padding-right: 50px;
 
 
-    display: flex;
-    justify-content: space-around;
-}
+			display: flex;
+			justify-content: space-around;
+	}
 
-.c-lists {
-    color: var(--colors-neutral-xx-light);
-    max-height: calc(100vh - 60px);
-    overflow-y: scroll;
+	.c-lists {
+			color: var(--colors-neutral-xx-light);
+			max-height: calc(100vh - 60px);
+			overflow-y: scroll;
 
-    margin-left: calc(var(--global-baseline)*2);
-    margin-right: calc(var(--global-baseline)*4)
-}
+			margin-left: calc(var(--global-baseline)*2);
+			margin-right: calc(var(--global-baseline)*4)
+	}
 
-.c-join-button {
-    background-color: var(--colors-theme-base);
-    color: var(--colors-neutral-xx-light);
-}
+	.c-join-button {
+			background-color: var(--colors-theme-base);
+			color: var(--colors-neutral-xx-light);
+	}
 
-.c-join-button:hover,
-.c-join-button:focus {
-    background-color: var(--colors-theme-base-light);
-    outline: none;
-    border: none;
-}  
+	.c-member-button {
+		background-color: var(--colors-neutral-light);
+		color: var(--colors-neutral-xx-light);
+	}
+
+	.c-member-button:hover,
+	.c-member-buttonn:focus {
+			cursor: not-allowed;
+			outline: none;
+			border: none;
+	}
+
+	.c-join-button:hover,
+	.c-join-button:focus {
+			background-color: var(--colors-theme-base-light);
+			outline: none;
+			border: none;
+	}
 </style>
 
 
@@ -89,17 +136,18 @@ func (c *CommunityPage) Init(ctx vugu.InitCtx) {
 
         <div vg-if='c.Loading'> Loading...</div>
         <main:CommunityInfo vg-if='c.Loading == false' :Name='c.Name' :Id='c.Id' :Description='c.Description' ></main:CommunityInfo>
-        
-        <button class="button-lg c-join-button">JOIN</button>
+
+        <button @click='go c.JoinCommunity()' vg-if='!c.IsMember' class="button-lg c-join-button">JOIN</button>
+				 <button vg-if='c.IsMember' class="button-lg c-member-button">MEMBER</button>
     </div>
-    <div> 
+    <div>
         <main:Feed Page="Community"></main:Feed>
     </div>
 
-    <div class="c-lists"> 
+    <div class="c-lists">
         <main:CommunityList Title="My Communities"></main:CommunityList>
         <main:CommunityList Title="All Communities"></main:CommunityList>
-        
+
 
     </div>
 </div>

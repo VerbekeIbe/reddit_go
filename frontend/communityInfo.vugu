@@ -8,57 +8,59 @@ import (
 
 type CommunityInfo struct {
     Loading bool `vugu:"data"`
-    Name string `vugu:"data"` 
-    Description string `vugu:"data"` 
-    Id string `vugu:"data"` 
-    
+    Name string `vugu:"data"`
+    Description string `vugu:"data"`
+    Id string `vugu:"data"`
+
+
+
 }
 
 
 
 
-    
+
 </script>
 
 
 <style>
-.c-community-info {
+	.c-community-info {
 
 
-    width: 300px;
-    min-height: 100px;
-    max-height: 500px;
+			width: 300px;
+			min-height: 100px;
+			max-height: 500px;
 
-    overflow: hidden;
-    
-    background-color: var(--colors-neutral-dark);
-    margin-top: var(--global-baseline);
-    margin-bottom: var(--global-baseline);
+			overflow: hidden;
 
-    border-radius: var(--global-border-radius);
-    padding-top: calc(var(--global-baseline)/2);
-    padding-bottom: var(--global-baseline);
-    padding-left: var(--global-baseline);
-    padding-right: var(--global-baseline);
-}
+			background-color: var(--colors-neutral-dark);
+			margin-top: var(--global-baseline);
+			margin-bottom: var(--global-baseline);
 
-.c-community__title {
-    font-size: var(--font-size-xl);
-    font-weight: 600;
-    color: var(--colors-neutral-xx-light);
-    margin-bottom: 8px;
-}
+			border-radius: var(--global-border-radius);
+			padding-top: calc(var(--global-baseline)/2);
+			padding-bottom: var(--global-baseline);
+			padding-left: var(--global-baseline);
+			padding-right: var(--global-baseline);
+	}
 
-.c-community__description {
-    font-size: var(--font-size-md);
-    color: var(--colors-neutral-xx-light);
+	.c-community__title {
+			font-size: var(--font-size-xl);
+			font-weight: 600;
+			color: var(--colors-neutral-xx-light);
+			margin-bottom: 8px;
+	}
 
-    display: -webkit-box;
-	-webkit-line-clamp: 16;
-	-webkit-box-orient: vertical;
-	text-overflow: ellipsis;
-  	overflow: hidden;
-}
+	.c-community__description {
+			font-size: var(--font-size-md);
+			color: var(--colors-neutral-xx-light);
+
+			display: -webkit-box;
+		-webkit-line-clamp: 16;
+		-webkit-box-orient: vertical;
+		text-overflow: ellipsis;
+			overflow: hidden;
+	}
 
 
 </style>

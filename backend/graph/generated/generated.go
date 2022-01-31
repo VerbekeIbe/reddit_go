@@ -560,6 +560,7 @@ type Query {
   communitiesForUser(userId:ID!): [Community]!
   communityById(communityId: ID!): Community
 
+
   # Users
   allUsers: [User!]!
   userById(userId:ID!): User
@@ -599,6 +600,7 @@ post_id: ID!
 user_id: ID!
 content: String!
 }
+
 
 
 

@@ -1,5 +1,6 @@
 <script type="application/x-go">
 
+
 type PostDetail struct {
     Loading bool `vugu:"data"`
     PostId string `vugu:"data"`
@@ -14,7 +15,12 @@ type PostDetail struct {
     CommunityName string `vugu:"data"`
 
 		Comments []CommentObject `vugu:"data"`
+
+		CommentContent string `vugu:"data"`
+		SubmitError bool `vugu:"data"`
 }
+
+
 
 func (c *PostDetail) Init(ctx vugu.InitCtx) {
     c.Loading = true
@@ -113,8 +119,8 @@ func (c *PostDetail) Init(ctx vugu.InitCtx) {
 								content
 								timestamp
 								user_id
-  }
-}
+  			}
+		}
 
         `)
 
@@ -130,6 +136,71 @@ func (c *PostDetail) Init(ctx vugu.InitCtx) {
 
 			c.Comments = commentResponse["commentsByPost"]
       c.Loading = false
+}
+
+func (c* PostDetail) CheckInputs() bool {
+	//empty check
+	if c.CommentContent != "" {
+
+		return true
+
+	} else {
+
+			return false
+	}
+}
+
+
+func (c* PostDetail) Submit() {
+
+
+	newComment := NewComment {
+		UserId: c.UserId,
+		PostId: c.PostId,
+		Content: c.CommentContent,
+	}
+
+		graphqlClient := graphql.NewClient("http://localhost:8080/query")
+      graphqlRequest := graphql.NewRequest(`
+          mutation ($input: NewComment!) {
+  					createComment(input: $input) {
+    					id
+							content
+  					}
+					}
+        `)
+
+        graphqlRequest.Var("input", newComment)
+        var commentResponse interface {}
+        if err := graphqlClient.Run(context.Background(), graphqlRequest, &commentResponse);
+            err != nil {
+            panic(err)
+        }
+
+
+}
+
+func (c *PostDetail) CheckSubmit(event vugu.DOMEvent) {
+	event.PreventDefault()
+
+
+	var check bool
+	check = c.CheckInputs()
+
+		if check {
+		c.SubmitError = false
+
+
+		go c.Submit()
+
+
+		// TODO init values
+
+
+
+	} else {
+		c.SubmitError = true
+	}
 }
 
 
@@ -231,6 +302,11 @@ func (c *PostDetail) Init(ctx vugu.InitCtx) {
 
     }
 
+		.u-input-lg {
+			min-height: 60px;
+			max-height: 300px;
+		}
+
     .c-submit-post {
         justify-self: flex-end;
         background-color: var(--colors-theme-base);
@@ -244,6 +320,10 @@ func (c *PostDetail) Init(ctx vugu.InitCtx) {
         border: none;
 
     }
+
+		.c-submit__error {
+			color: var(--colors-theme-error);
+		}
 
     .c-all-comments {
         margin-bottom: calc(var(--global-baseline)/2);
@@ -271,9 +351,15 @@ func (c *PostDetail) Init(ctx vugu.InitCtx) {
 
     <form class="c-form-post">
         <label class="c-form-post__label" for="content">Comment as <strong>Username</strong>:</label>
-        <textarea class="c-form-post__input u-input-lg" name="content" cols="40" rows="8" placeholder="Make it engaging."></textarea>
+
+				<vgform:Textarea id="content" class="c-form-post__input u-input-lg" cols="40" rows="5"  placeholder="Make it engaging."
+                :Value='vgform.StringPtrDefault(&c.CommentContent, "")'
+                ></vgform:Textarea>
+
+					<div class='c-submit__error' vg-if='c.SubmitError'>Your post needs both a title and some content.</div>
+
         <div class="button-holder">
-            <button class="button-sm c-submit-post">Comment</button>
+            <button @click="c.CheckSubmit(event)" class="button-sm c-submit-post">Comment</button>
         </div>
 
     </form>

@@ -1,95 +1,107 @@
 <script type="application/x-go">
 
+import "github.com/vugu/vgrouter"
 
 type Root struct {
 
+    // ANYTHING THAT MUST NAVIGATE NEED ONLY EMBED THIS
+    vgrouter.NavigatorRef
+
+
+    Body vugu.Builder
+
 }
-    
+
 </script>
 
 <style>
-body {
-    line-height: 1.2;
-}
-:root {
-    --main-color: pink;
+	body {
+			line-height: 1.2;
+	}
+	:root {
+			--main-color: pink;
 
-    --colors-neutral-x-dark: #030303;
-    --colors-neutral-dark: #1A1A1B;
-    --colors-neutral-light: #434343;
-    --colors-neutral-x-light: #A2A2A2;
-    --colors-neutral-xx-light: #ECECEC;
+			--colors-neutral-x-dark: #030303;
+			--colors-neutral-dark: #1A1A1B;
+			--colors-neutral-light: #434343;
+			--colors-neutral-x-light: #A2A2A2;
+			--colors-neutral-xx-light: #ECECEC;
 
-    --colors-theme-base: #3439CF;
-    --colors-theme-base-light: #686CE8;
-    --colors-theme-error:  #C80000;
-
-
-    --font-size-xl-2: 28px;
-    --font-size-xl: 24px;
-    --font-size-lg-2: 20px;
-    --font-size-lg: 18px;
-    --font-size-md: 16px;
-    --font-size-sm: 14px; 
-    --font-size-sm-2: 12px; 
-
-    --global-baseline: 16px;
-
-    --global-border-radius: 4px;
-}
-
-.button-lg {
-    border-radius: var(--global-border-radius);
-    outline: none;
-    border: none;
-
-    text-align: center;
-    font-weight: 600;
-    font-size: var(--font-size-xl-2);
-
-    height: 64px;
-    width: 300px;
-}
-.button-sm {
-    border-radius: calc(var(--global-border-radius)/2);
-    outline: none;
-    border: none;
-
-    text-align: center;
-
-    height: 36px;
-    width: 80px;  
-}
-
-body,html {
-    margin: 0;
-    padding: 0;
-}
+			--colors-theme-base: #3439CF;
+			--colors-theme-base-light: #686CE8;
+			--colors-theme-error:  #EF0000;
 
 
-.c-page {
-    background-color: var(--colors-neutral-x-dark);
-    height: 100vh;
-    width: 100vw;
-    border: none;
-    box-sizing: border-box;
-}
+			--font-size-xl-2: 28px;
+			--font-size-xl: 24px;
+			--font-size-lg-2: 20px;
+			--font-size-lg: 18px;
+			--font-size-md: 16px;
+			--font-size-sm: 14px;
+			--font-size-sm-2: 12px;
+
+			--global-baseline: 16px;
+
+			--global-border-radius: 4px;
+	}
+
+	.button-lg {
+			border-radius: var(--global-border-radius);
+			outline: none;
+			border: none;
+
+			text-align: center;
+			font-weight: 600;
+			font-size: var(--font-size-xl-2);
+
+			height: 64px;
+			width: 300px;
+	}
+	.button-sm {
+			border-radius: calc(var(--global-border-radius)/2);
+			outline: none;
+			border: none;
+
+			text-align: center;
+
+			height: 36px;
+			width: 80px;
+	}
+
+	body,html {
+			margin: 0;
+			padding: 0;
+	}
+
+
+	.c-page {
+			background-color: var(--colors-neutral-x-dark);
+			height: 100vh;
+			width: 100vw;
+			border: none;
+			box-sizing: border-box;
+	}
 </style>
 
-<div class="c-page">
+	<div class="c-page">
+ 	<main:Header Title="Home" Username="Ibe Verbeke"></main:Header>
 
-    <main:Header Title="Home" Username="Ibe Verbeke"></main:Header>
+	<vg-comp expr='c.Body'/>
+
+
 
       <!-- <main:PostDetailPage></main:PostDetailPage> -->
 
    <!-- <main:NotificationCenter></main:NotificationCenter> -->
-    
+
      <!--  <main:Homepage></main:Homepage> -->
-   
+
   <!-- <main:CommunityPage></main:CommunityPage> -->
 
-    <main:PostDetailPage></main:PostDetailPage>
+   <!-- <main:PostDetailPage></main:PostDetailPage> -->
 
-</div>
+ </div>
+
+
 
 
